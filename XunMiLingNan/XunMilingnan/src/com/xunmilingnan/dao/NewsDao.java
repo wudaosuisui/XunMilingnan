@@ -10,16 +10,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.xunmilingnan.entity.Group;
+import com.xunmilingnan.entity.News;
 
 @Repository
-public class Dao {
-	
+public class NewsDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
 	/*save*/
-	public void save(Object obj ) {
+	public void save(News obj ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
 		session.save(obj);
@@ -28,20 +27,20 @@ public class Dao {
 	}
 	
 	/*get*/
-	public List<Object> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from tableName");
+	public List<News> getList(){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from News");
 		return q.list();
 	}
-	public Object getById(int id ) {
+	public News getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		Object obj = session.get(Object.class, id);
+		News obj = session.get(News.class, id);
 		tra.commit();
 		return obj;
 	}
 	
 	/*upDate*/
-	public void upDate(Object obj) {
+	public void upDate(News obj) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
 		session.update(obj);
@@ -50,7 +49,7 @@ public class Dao {
 	}
 	
 	/*delete*/
-	public void delete(Object obj) {
+	public void delete(News obj) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
 		session.delete(obj);
@@ -58,6 +57,4 @@ public class Dao {
 		tra.commit();
 		
 	}
-	
 }
-

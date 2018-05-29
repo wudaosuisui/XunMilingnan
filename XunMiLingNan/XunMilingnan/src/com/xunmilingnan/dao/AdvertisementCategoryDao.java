@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.xunmilingnan.entity.AdvertisementCategory;
+import com.xunmilingnan.entity.AdvCategory;
 
 @Repository
 public class AdvertisementCategoryDao {
@@ -19,7 +19,7 @@ public class AdvertisementCategoryDao {
 	private SessionFactory sessionFactory;
 	
 	/*save*/
-	public void save(AdvertisementCategory obj ) {
+	public void save(AdvCategory obj ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
 		session.save(obj);
@@ -28,20 +28,20 @@ public class AdvertisementCategoryDao {
 	}
 	
 	/*get*/
-	public List<AdvertisementCategory> getList(){
+	public List<AdvCategory> getList(){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from AdvertisementCategory");
 		return q.list();
 	}
-	public AdvertisementCategory getById(int id ) {
+	public AdvCategory getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		AdvertisementCategory obj = session.get(AdvertisementCategory.class, id);
+		AdvCategory obj = session.get(AdvCategory.class, id);
 		tra.commit();
 		return obj;
 	}
 	
 	/*upDate*/
-	public void upDate(AdvertisementCategory obj) {
+	public void upDate(AdvCategory obj) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
 		session.update(obj);
@@ -50,7 +50,7 @@ public class AdvertisementCategoryDao {
 	}
 	
 	/*delete*/
-	public void delete(AdvertisementCategory obj) {
+	public void delete(AdvCategory obj) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
 		session.delete(obj);

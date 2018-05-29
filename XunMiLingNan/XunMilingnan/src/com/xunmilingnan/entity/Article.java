@@ -16,25 +16,28 @@ import org.hibernate.annotations.GenericGenerator;
 public class Article {//活动
 	
 	private int id ;
-	private Activity activity;//活动id  多对一
+	private SpecialTopic activity;//活动id  多对一
 	private User user;//用户（作者）id 多对一
 	private Date publishTime;//发表时间
-//	private String title;//文章标题
+	private String title;//文章标题
 	private String text;//文章内容
+	private int forward;//收藏量
 	private int browse;//浏览量
-	private int praise;//点赞量
-	private int forward;//转发量
+	private int praise;//点赞量	
+	private int sort;//排序编号
 	
 	public Article(){}
 
-	public Article(Activity activity, User user, Date publishTime, String text, int browse, int praise, int forward) {
+	public Article(SpecialTopic activity, User user, Date publishTime,String title,String text, int browse, int praise, int forward,int sort) {
 		this.activity = activity;
 		this.user = user;
 		this.publishTime = publishTime;
+		this.title = title;
 		this.text = text;
 		this.browse = browse;
 		this.praise = praise;
 		this.forward = forward;
+		this.sort = sort;
 	}
 
 
@@ -52,12 +55,12 @@ public class Article {//活动
 
 	@ManyToOne
 	@JoinColumn(name="ar_acid")
-	public Activity getActivity() {
+	public SpecialTopic getActivity() {
 		return activity;
 	}
 
 
-	public void setActivity(Activity activity) {
+	public void setActivity(SpecialTopic activity) {
 		this.activity = activity;
 	}
 
@@ -67,14 +70,9 @@ public class Article {//活动
 	public User getUser() {
 		return user;
 	}
-
-
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-
 	@Column(name="ar_publishtime")
 	public Date getPublishTime() {
 		return publishTime;
@@ -111,9 +109,24 @@ public class Article {//活动
 	public int getForward() {
 		return forward;
 	}
-
 	public void setForward(int forward) {
 		this.forward = forward;
+	}
+	@Column(name="ar_title")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	@Column(name="ar_sort")
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 	
 	

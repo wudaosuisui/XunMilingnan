@@ -11,27 +11,33 @@ import org.hibernate.annotations.GenericGenerator;
 
 //活动
 @Entity
-public class Activity {
+public class SpecialTopic {
 	
 	private int id;
-	private String title;
-	private Date startTime;
-	private Date endTime;
-	private String article;//活动内容
-	private String img;
-	private int follow;//关注量
+	private String title;//标题
+	private Date startTime;//开始时间
+	private Date endTime;//截止时间
+	private String article;//活动内容（宣传的文字）
+	private String img;//活动宣传图片（海报）
+	private int browse;//关注量
+	private Date showTime;//发布时间
+	private int isHot;//热门
+	private int sort;//排序编号
 	
 	//空构造
-	public Activity() {}
+	public SpecialTopic() {}
 	//基本全构造
-	public Activity( String title, Date startTime, 
-			Date endTime, String article, String img, int follow) {
+	public SpecialTopic( String title, Date startTime, Date endTime, String article, String img, int browse,
+			Date showTime, int isHot, int sort) {
 		this.title = title;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.article = article;
 		this.img = img;
-		this.follow = follow;
+		this.browse = browse;
+		this.showTime = showTime;
+		this.isHot = isHot;
+		this.sort = sort;
 	}
 	
 	//setter & getter
@@ -80,13 +86,35 @@ public class Activity {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	@Column(name="ac_follow")
-	public int getFollow() {
-		return follow;
+	@Column(name="ac_browse")
+	public int getBrowse() {
+		return browse;
 	}
-	public void setFollow(int follow) {
-		this.follow = follow;
+	public void setBrowse(int browse) {
+		this.browse = browse;
 	}
+	@Column(name="ac_showTime")
+	public Date getShowTime() {
+		return showTime;
+	}
+	public void setShowTime(Date showTime) {
+		this.showTime = showTime;
+	}
+	@Column(name="ac_isHot")
+	public int getIsHot() {
+		return isHot;
+	}
+	public void setIsHot(int isHot) {
+		this.isHot = isHot;
+	}
+	@Column(name="ac_sort")
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+	
 	
 	
 	

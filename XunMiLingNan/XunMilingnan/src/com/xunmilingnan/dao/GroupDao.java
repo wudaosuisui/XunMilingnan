@@ -12,52 +12,54 @@ import org.springframework.stereotype.Repository;
 
 import com.xunmilingnan.entity.Group;
 
+
 @Repository
-public class Dao {
+public class GroupDao {
 	
 	@Resource
 	private SessionFactory sessionFactory;
 	
-	/*save*/
-	public void save(Object obj ) {
+	/*保存*/
+	//save 
+	public void save(Group ug) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
-		session.save(obj);
+		session.save(ug);
 		session.flush();
 		tra.commit();
 	}
-	
-	/*get*/
-	public List<Object> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from tableName");
+	/*获取*/
+	public List<Group> getList(){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User_group");
 		return q.list();
 	}
-	public Object getById(int id ) {
+	
+	//get by id
+	public Group getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		Object obj = session.get(Object.class, id);
+		Group ug = session.get(Group.class, id);
 		tra.commit();
-		return obj;
+		return ug;
 	}
 	
-	/*upDate*/
-	public void upDate(Object obj) {
+	/*修改*/
+	public void upDate(Group ug) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		session.update(obj);
+		session.update(ug);
 		session.flush();
 		tra.commit();
 	}
-	
-	/*delete*/
-	public void delete(Object obj) {
+	/*删除*/
+	public void delete(Group ug) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		session.delete(obj);
+		session.delete(ug);
 		session.flush();
 		tra.commit();
 		
 	}
 	
+	
 }
-

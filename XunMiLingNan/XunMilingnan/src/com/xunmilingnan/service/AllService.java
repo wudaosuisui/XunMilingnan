@@ -23,7 +23,7 @@ public class AllService {
 	private SessionFactory sessionFactory;
 	
 	@Resource
-	private UserGroupDao usGroDao;//用户组
+	private GroupDao usGroDao;//用户组
 	@Resource
 	private AdvertisementCategoryDao adverCatDao;//广告种类
 	@Resource
@@ -32,7 +32,7 @@ public class AllService {
 	@Resource
 	private UserDao userDao;//活动
 	@Resource
-	private ActivityDao actDao;//活动
+	private SpecialTopicDao actDao;//活动
 	@Resource
 	private AdminDao admDao;//admin
 	@Resource
@@ -65,12 +65,12 @@ public class AllService {
 	public void addAll(Map objects) {
 		System.out.println("get service success");
 		Session session = sessionFactory.openSession();
-		usGroDao.save((UserGroup)objects.get("UserGroup"));
-		adverCatDao.save((AdvertisementCategory)objects.get("AdvertisementCategory"));
+		usGroDao.save((Group)objects.get("UserGroup"));
+		adverCatDao.save((AdvCategory)objects.get("AdvertisementCategory"));
 		chaDao.save((Channel)objects.get("Channel"));
 
 		userDao.save((User)objects.get("User"));
-		actDao.save((Activity)objects.get("Activity"));
+		actDao.save((SpecialTopic)objects.get("Activity"));
 		admDao.save((Admin)objects.get("Admin"));
 		aderDao.save((Advertisement)objects.get("Advertisement"));
 		artDao.save((Article)objects.get("Article"));

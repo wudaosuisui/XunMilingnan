@@ -10,16 +10,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="User_group")
-public class UserGroup {//鐢ㄦ埛缁?
+public class Group {//鐢ㄦ埛缁?
 	
 	private int id;
-	private String sign;//用户组的标志  0为前台组；1为后台组
+	private String sign;//用户组的标志  0 — 前台组；1 - 后台组；2 - 消息组
 	private String name;//用户组的名称 
 	private String describe;//用户组权限的描述
 	
-	public UserGroup() {}
+	public Group() {}
 	
-	public UserGroup(String sign, String name, String describe) {
+	public Group(String sign, String name, String describe) {
 		this.sign = sign;
 		this.name = name;
 		this.describe = describe;

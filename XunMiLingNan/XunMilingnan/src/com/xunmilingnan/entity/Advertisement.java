@@ -13,18 +13,21 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Advertisement {
 	private int id;
-	private AdvertisementCategory adCategory;//广告类型
+	private AdvCategory adCategory;//广告类型
 	private String title;
 	private String img;
 	private String url;
+	private int sortNumber;//排序编号   用于排序，编号越大，排越前，如果排序编号相同，则根据id大小进行排序
+
 	
 	public Advertisement() {}
 	
-	public Advertisement(AdvertisementCategory adCategory, String title, String img, String url) {
+	public Advertisement(AdvCategory adCategory, String title, String img, String url,int sortNumber) {
 		this.adCategory = adCategory;
 		this.title = title;
 		this.img = img;
 		this.url = url;
+		this.sortNumber = sortNumber;
 	}
 	@Id
 	@GeneratedValue(generator="my_gen")
@@ -39,11 +42,11 @@ public class Advertisement {
 	}
 	@ManyToOne
 	@JoinColumn(name="ad_caid")
-	public AdvertisementCategory getAdCategory() {
+	public AdvCategory getAdCategory() {
 		return adCategory;
 	}
 
-	public void setAdCategory(AdvertisementCategory adCategory) {
+	public void setAdCategory(AdvCategory adCategory) {
 		this.adCategory = adCategory;
 	}
 	@Column(name="ad_title")
@@ -70,7 +73,14 @@ public class Advertisement {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+	@Column(name="ad_sortNumber")
+	public int getSortNumber() {
+		return sortNumber;
+	}
+
+	public void setSortNumber(int sortNumber) {
+		this.sortNumber = sortNumber;
+	}
 	
 	
 	

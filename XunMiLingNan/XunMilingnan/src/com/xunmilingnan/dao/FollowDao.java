@@ -10,54 +10,52 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.xunmilingnan.entity.Activity;
+import com.xunmilingnan.entity.Follow;
 
 @Repository
-public class ActivityDao {
-	
+public class FollowDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
 	/*save*/
-	public void save( Activity act ) {
+	public void save(Follow obj ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
-		session.save(act);
+		session.save(obj);
 		session.flush();
 		tra.commit();
 	}
 	
 	/*get*/
-	public List<Activity> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from Activity");
+	public List<Follow> getList(){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow");
 		return q.list();
 	}
-	public Activity getById(int id ) {
+	public Follow getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		Activity act = session.get(Activity.class, id);
+		Follow obj = session.get(Follow.class, id);
 		tra.commit();
-		return act;
+		return obj;
 	}
 	
 	/*upDate*/
-	public void upDate(Activity act) {
+	public void upDate(Follow obj) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		session.update(act);
+		session.update(obj);
 		session.flush();
 		tra.commit();
 	}
 	
 	/*delete*/
-	public void delete(Activity act) {
+	public void delete(Follow obj) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		session.delete(act);
+		session.delete(obj);
 		session.flush();
 		tra.commit();
 		
 	}
 	
-
 }

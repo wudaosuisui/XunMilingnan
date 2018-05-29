@@ -10,56 +10,54 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.xunmilingnan.entity.UserGroup;
-
+import com.xunmilingnan.entity.SpecialTopic;
 
 @Repository
-public class UserGroupDao {
+public class SpecialTopicDao {
 	
 	@Resource
 	private SessionFactory sessionFactory;
 	
-	/*保存*/
-	//save 
-	public void save(UserGroup ug) {
+	/*save*/
+	public void save( SpecialTopic act ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
-		session.save(ug);
+		session.save(act);
 		session.flush();
 		tra.commit();
 	}
-	/*获取*/
-	public List<UserGroup> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User_group");
+	
+	/*get*/
+	public List<SpecialTopic> getList(){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Activity");
 		return q.list();
 	}
-	
-	//get by id
-	public UserGroup getById(int id ) {
+	public SpecialTopic getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		UserGroup ug = session.get(UserGroup.class, id);
+		SpecialTopic act = session.get(SpecialTopic.class, id);
 		tra.commit();
-		return ug;
+		return act;
 	}
 	
-	/*修改*/
-	public void upDate(UserGroup ug) {
+	/*upDate*/
+	public void upDate(SpecialTopic act) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		session.update(ug);
+		session.update(act);
 		session.flush();
 		tra.commit();
 	}
-	/*删除*/
-	public void delete(UserGroup ug) {
+	
+	/*delete*/
+	public void delete(SpecialTopic act) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		session.delete(ug);
+		session.delete(act);
 		session.flush();
 		tra.commit();
 		
 	}
 	
-	
+
 }

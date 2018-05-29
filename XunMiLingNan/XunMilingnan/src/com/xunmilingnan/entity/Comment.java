@@ -23,16 +23,20 @@ public class Comment {
 	private User user;//发布的用户   多对一
 	private Date time;//评论时间
 	private String text;//评论内容
+	private int type;//0为文章，1为电台节目
+	private int works;//电台节目ID/文章ID
 	
 	public Comment(){}
 	
-	public Comment(boolean auditing, Admin admin, Comment reply, User user, Date time, String text) {
+	public Comment(boolean auditing, Admin admin, Comment reply, User user, Date time, String text,int type,int works) {
 		this.auditing = auditing;
 		this.admin = admin;
 		this.reply = reply;
 		this.user = user;
 		this.time = time;
 		this.text = text;
+		this.type = type;
+		this.works = works;
 	}
 	
 	public Comment(boolean auditing, Admin admin, User user, Date time, String text) {
@@ -104,6 +108,22 @@ public class Comment {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	@Column(name="co_type")
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	@Column(name="co_works")
+	public int getWorks() {
+		return works;
+	}
+
+	public void setWorks(int works) {
+		this.works = works;
 	}
 	
 	

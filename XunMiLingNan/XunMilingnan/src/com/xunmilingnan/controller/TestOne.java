@@ -48,7 +48,7 @@ public class TestOne {
 			@RequestParam(value="sign") String sign,
 			@RequestParam(value="name") String name,
 			@RequestParam(value="describe") String describe ) throws SQLException{
-		UserGroup ug = new UserGroup(sign,name,describe);
+		Group ug = new Group(sign,name,describe);
 		ugService.addOneUserGroup(ug);
 		ResponseJsonUtils.json(response, ug);
 	}
@@ -60,40 +60,40 @@ public class TestOne {
 	
 	@PostMapping("/addTest")
 	public void addTest( HttpServletResponse response) {
-		System.out.println("get controller success ");
-		Map objecs= new HashMap<String, Object>(11);
-		//用户组
-		UserGroup ug = new UserGroup("0","author","电台节目作者");
-		//广告种类
-		AdvertisementCategory advCat = new AdvertisementCategory("首页轮播图");
-		//频道类型
-		Channel cha = new Channel("频道类型1","对频道类型1的描述","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(1).jpg");
-		
-		//用户
-		User use = new User("username","password");
-		//活动
-		Activity acr = new Activity("活动一",new Date(),new Date(),"活动的具体内容，这里应该有很多文字","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(2).jpg",0);
-		//admin
-		Admin adm = new Admin("username2","123",ug,new Date());
-		//广告
-		Advertisement adv = new Advertisement(advCat,"这是一个广告的题目","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(3).jpg","这里原本应该是一个url");
-		//文章
-		Article art = new Article(acr,use,new Date(),"这是文章内容",0,0,0);
-		//评论
-		Comment com = new Comment(false,adm,use,new Date(),"评论的内容");
-		//电台jiemu
-		Program pro = new Program(use,new Date(),0,0,0,0);
-//		login.put("userName", true);
-//		 log.get(userName)
-		System.out.println("创建对象成功  success to new Objects!");
-		objecs.put("UserGroup", ug);objecs.put("AdvertisementCategory", advCat);
-		objecs.put("Channel", cha);objecs.put("Activity", acr);
-		objecs.put("Admin", adm);objecs.put("Advertisement", adv);
-		objecs.put("Article", art);objecs.put("Comment", com);
-		objecs.put("Program", pro);objecs.put("User", use);
-		System.out.println("add to Map success");
-		allService.addAll(objecs);
-		ResponseJsonUtils.json(response, objecs);
+//		System.out.println("get controller success ");
+//		Map objecs= new HashMap<String, Object>(11);
+//		//用户组
+//		Group ug = new Group("0","author","电台节目作者");
+//		//广告种类
+//		AdvCategory advCat = new AdvCategory("首页轮播图");
+//		//频道类型
+//		Channel cha = new Channel("频道类型1","对频道类型1的描述","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(1).jpg");
+//		
+//		//用户
+//		User use = new User("username","password");
+//		//活动
+////		SpecialTopic acr = new SpecialTopic("活动一",new Date(),new Date(),"活动的具体内容，这里应该有很多文字","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(2).jpg",0);
+//		//admin
+//		Admin adm = new Admin("username2","123",ug,new Date());
+//		//广告
+//		Advertisement adv = new Advertisement(advCat,"这是一个广告的题目","file:///E:/Program%20Files/JavaEE/eclipseWork/XunMilingnan/WebContent/img/page%20(3).jpg","这里原本应该是一个url");
+//		//文章
+////		Article art = new Article(acr,use,new Date(),"这是文章内容",0,0,0);
+//		//评论
+//		Comment com = new Comment(false,adm,use,new Date(),"评论的内容");
+//		//电台jiemu
+//		Program pro = new Program(use,new Date(),0,0,0,0);
+////		login.put("userName", true);
+////		 log.get(userName)
+//		System.out.println("创建对象成功  success to new Objects!");
+//		objecs.put("UserGroup", ug);objecs.put("AdvertisementCategory", advCat);
+////		objecs.put("Channel", cha);objecs.put("Activity", acr);
+//		objecs.put("Admin", adm);objecs.put("Advertisement", adv);
+////		objecs.put("Article", art);objecs.put("Comment", com);
+//		objecs.put("Program", pro);objecs.put("User", use);
+//		System.out.println("add to Map success");
+//		allService.addAll(objecs);
+//		ResponseJsonUtils.json(response, objecs);
 	}
 	
 	

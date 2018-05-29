@@ -7,8 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.xunmilingnan.dao.UserGroupDao;
-import com.xunmilingnan.entity.UserGroup;
+import com.xunmilingnan.dao.GroupDao;
+import com.xunmilingnan.entity.Group;
 
 
 
@@ -18,10 +18,10 @@ public class UserGroupServiceImpl {
 	@Resource
 	private SessionFactory sessionFactory;
 	@Resource
-	private UserGroupDao ugDaoImpl;
+	private GroupDao ugDaoImpl;
 	
 	//add one 
-	public void addOneUserGroup(UserGroup ug) {
+	public void addOneUserGroup(Group ug) {
 		Session session = sessionFactory.openSession();
 		ugDaoImpl.save(ug);
 		session.close();

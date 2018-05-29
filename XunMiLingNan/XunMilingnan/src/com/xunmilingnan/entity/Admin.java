@@ -15,12 +15,12 @@ public class Admin {
 	private int id;
 	private String userName;
 	private String passWord;
-	private UserGroup userg;//用户组  多对一
+	private Group userg;//用户组  多对一
 	private Date time;//创建时间
 	
 	public Admin() {}
 	
-	public Admin(String userName, String passWord, UserGroup userg, Date time) {
+	public Admin(String userName, String passWord, Group userg, Date time) {
 		this.userName = userName;
 		this.passWord = passWord;
 		this.userg = userg;
@@ -56,11 +56,11 @@ public class Admin {
 	
 	@ManyToOne
 	@JoinColumn(name="adm_ugid")
-	public UserGroup getUserg() {
+	public Group getUserg() {
 		return userg;
 	}
 
-	public void setUserg(UserGroup userg) {
+	public void setUserg(Group userg) {
 		this.userg = userg;
 	}
 	@Column(name="adm_time")
