@@ -7,8 +7,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action = "../test/add" > 
-<input type="submit" >
+<h3>XunMilingnan/radio/addradcat</h3>
+<form action = "radio/addradcat" method="post"
+enctype="multipart/form-data"> 
+name: <input type="text" name="name" value="radcat1"><br>
+sortNumber: <input type="text" name="sortNumber" value="0"><br>
+img : <input type="file" name="img"><br>
+<input type="submit"><br>
 </form>
+<br><br><br><br>
+
+<h3>XunMilingnan/radio/updradcat</h3>
+<form action = "radio/updradcat" method="post" 
+enctype="multipart/form-data"> 
+id: <input type="text" name="radCatId"><br>
+name: <input type="text" name="name"><br>
+sortNumber: <input type="text" name="sortNumber"><br>
+img : <input type="file" name="img"><br>
+<input type="submit"><br>
+</form>
+
+
+
 </body>
 </html>

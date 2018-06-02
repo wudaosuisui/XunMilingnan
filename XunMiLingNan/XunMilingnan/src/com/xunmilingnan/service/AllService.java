@@ -25,7 +25,7 @@ public class AllService {
 	@Resource
 	private GroupDao usGroDao;//用户组
 	@Resource
-	private AdvertisementCategoryDao adverCatDao;//广告种类
+	private AdvCategoryDao adverCatDao;//广告种类
 	@Resource
 	private ChannelDao chaDao;//频道类型
 	

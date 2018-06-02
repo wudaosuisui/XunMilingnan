@@ -52,5 +52,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jjwt-0.7.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fastjson-1.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/base64-1.0.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

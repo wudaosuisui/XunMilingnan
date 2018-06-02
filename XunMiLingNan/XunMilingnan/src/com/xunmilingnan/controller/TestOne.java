@@ -43,6 +43,17 @@ public class TestOne {
 	/*,
 	@RequestBody UserGroup ug*/
 	
+	@PostMapping("/getTest")
+	public void getTest( HttpServletResponse response,
+			@RequestParam(value="id") int id) {
+		System.out.println("id is : " + id);
+		Map objecs= new HashMap<String, Object>(1);
+		objecs.put("id", id);
+
+		ResponseJsonUtils.json(response, objecs);
+		
+	}
+	
 	@PostMapping("/addOneUg")
 	public void addOneUg(HttpServletResponse response,
 			@RequestParam(value="sign") String sign,
@@ -53,8 +64,8 @@ public class TestOne {
 		ResponseJsonUtils.json(response, ug);
 	}
 	
-	@GetMapping("/getTest")
-	public void getTest( HttpServletResponse response) {
+	@GetMapping("/getAllTest")
+	public void getAllTest( HttpServletResponse response) {
 		ResponseJsonUtils.json(response, allService.getAll());
 	}
 	
