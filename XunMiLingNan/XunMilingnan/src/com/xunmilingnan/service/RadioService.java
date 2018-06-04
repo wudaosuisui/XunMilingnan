@@ -48,7 +48,7 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		proDao.save(pro);
 		session.close();
-		Map message =new HashMap<String, Object>(2)
+		Map message =new HashMap<String, Object>(1)
 		{{
 			put("program",pro);
 		}};
@@ -200,7 +200,7 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		albumDao.save(album);
 		session.close();
-		Map message =new HashMap<String, Object>(2)
+		Map message =new HashMap<String, Object>(1)
 		{{
 			put("album",album);
 		}};
@@ -241,7 +241,7 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		albumDao.upDate(album);
 		session.close();
-		Map message =new HashMap<String, Object>(2)
+		Map message =new HashMap<String, Object>(1)
 		{{
 			put("album",album);
 		}};
@@ -268,7 +268,7 @@ public class RadioService {
 			page.setList(albumList);
 			page.setCurrentPageNum(pageNum);
 		}
-		Map message =new HashMap<String, Object>(2)
+		Map message =new HashMap<String, Object>(1)
 			{{put("albumList",page.getPartList());
 			}};
 		//¥Ê»Î∑µªÿ÷µ

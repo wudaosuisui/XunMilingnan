@@ -33,6 +33,10 @@ public class AdvertisementDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Advertisement");
 		return q.list();
 	}
+	public List<Advertisement> getListByAdvCatId(int id ){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Advertisement where adCategory = "+id);
+		return q.list();
+	}
 	public Advertisement getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
@@ -59,6 +63,15 @@ public class AdvertisementDao {
 		tra.commit();
 		
 	}
-	
+	public void deleteById(int id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Advertisement adv = new Advertisement();
+		adv.setId(id);
+		session.delete(adv);
+		session.flush();
+		tra.commit();
+		
+	}
 
 }

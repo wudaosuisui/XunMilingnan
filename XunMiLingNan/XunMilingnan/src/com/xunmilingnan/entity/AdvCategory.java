@@ -27,10 +27,10 @@ public class AdvCategory {
 		this.img = img;
 	}
 	//构造一个广告分类
-	public AdvCategory(String name,int sortNumber) {
+	public AdvCategory(String name,int type,int sortNumber) {
 		this.name = name;
 		this.sortNumber = sortNumber;
-		this.type = 0;
+		this.type = type;
 	}
 	//构造一个电台分类
 
