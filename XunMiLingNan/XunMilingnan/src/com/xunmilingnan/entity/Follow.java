@@ -14,7 +14,8 @@ import org.hibernate.annotations.GenericGenerator;
 public class Follow {
 	private int id;
 	private User user;
-	private int type;//0 - 文章; 1 - 电台节目 ; 2 - 用户；3 - 电台专辑 ；4 - 浏览记录
+	private int type;
+	//0 - 文章; 1 - 电台节目 ; 2 - 用户；3 - 电台专辑 ；4 - 文章浏览记录；5- 节目浏览记录
 	private int fsid;//被关注的 事物的id
 	
 	public Follow() {	}

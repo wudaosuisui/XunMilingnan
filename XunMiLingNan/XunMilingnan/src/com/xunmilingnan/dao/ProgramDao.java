@@ -1,5 +1,6 @@
 package com.xunmilingnan.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,7 +11,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import com.xunmilingnan.entity.Follow;
 import com.xunmilingnan.entity.Program;
+import com.xunmilingnan.statics.Uploads;
 
 @Repository
 public class ProgramDao {
@@ -18,6 +21,7 @@ public class ProgramDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
+	private Uploads uploads = new Uploads();
 	/*save*/
 	public void save(Program obj ) {
 		Session session = sessionFactory.getCurrentSession();//鑾峰彇sessio
@@ -32,6 +36,14 @@ public class ProgramDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program");
 		return q.list();
 	}
+	public List<Program> getListByAlbumId(int id ){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program where album="+id);
+		return q.list();
+	}
+	public List<Program> getListByAdvCatId(int id ){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program where advCat="+id);
+		return q.list();
+	}
 	public Program getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
@@ -39,11 +51,22 @@ public class ProgramDao {
 		tra.commit();
 		return obj;
 	}
-	
+	public List<Program> getListByFollowList(List<Follow> foList){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tra = session.beginTransaction();
+		//创建一个 program list
+		List<Program> proList =  new ArrayList(foList.size());
+		for(Follow fol : foList) {
+			proList.add(session.get(Program.class, fol.getFsid()));
+		}
+		tra.commit();
+		return proList;
+	}
 	/*upDate*/
 	public void upDate(Program obj) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
+		this.uploads.deleteRad(obj.getFMName());//删除对应的音频文件
 		session.update(obj);
 		session.flush();
 		tra.commit();
@@ -58,6 +81,22 @@ public class ProgramDao {
 		tra.commit();
 		
 	}
-	
+	public void deleteById(int id ) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Program pro = getById(id);
+		this.uploads.deleteRad(pro.getFMName());//删除对应的音频文件
+		session.delete(pro);
+		session.flush();
+		tra.commit();
+	}
+	public void deleteList(List<Program> list) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		for(Program pro : list)
+			session.delete(pro);	
+		session.flush();
+		tra.commit();
+	}
 
 }

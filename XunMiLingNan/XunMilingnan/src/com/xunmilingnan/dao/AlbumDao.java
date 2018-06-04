@@ -10,15 +10,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.xunmilingnan.entity.Follow;
+import com.xunmilingnan.entity.Album;
 
 @Repository
-public class FollowDao {
+public class AlbumDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
 	/*save*/
-	public void save(Follow obj ) {
+	public void save(Album obj ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
 		session.save(obj);
@@ -27,20 +27,20 @@ public class FollowDao {
 	}
 	
 	/*get*/
-	public List<Follow> getList(int uId){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +uId);
+	public List<Album> getList(int advCatid ){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Album where advCat ="+advCatid);
 		return q.list();
 	}
-	public Follow getById(int id ) {
+	public Album getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
-		Follow obj = session.get(Follow.class, id);
+		Album obj = session.get(Album.class, id);
 		tra.commit();
 		return obj;
 	}
 	
 	/*upDate*/
-	public void upDate(Follow obj) {
+	public void upDate(Album obj) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
 		session.update(obj);
@@ -49,7 +49,7 @@ public class FollowDao {
 	}
 	
 	/*delete*/
-	public void delete(Follow obj) {
+	public void delete(Album obj) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
 		session.delete(obj);
@@ -57,5 +57,14 @@ public class FollowDao {
 		tra.commit();
 		
 	}
-	
+	public void deleteById(int id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Album album = new Album();
+		album.setId(id);
+		session.delete(album);
+		session.flush();
+		tra.commit();
+		
+	}
 }

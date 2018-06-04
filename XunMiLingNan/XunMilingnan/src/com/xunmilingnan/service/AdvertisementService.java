@@ -21,6 +21,18 @@ public class AdvertisementService {
 	@Resource//电台分类（也是广告分类）Dao
 	private AdvCategoryDao advCatDao;
 	
+	//	1. 添加广告分类
+	
+	//	2. 更新广告分类
+	//	3. 删除广告分类
+	//	4. 获取所有广告分类(带有分页和筛选)
+	//	5. 添加一条广告
+	//	6. 更新一条广告
+	//	7. 删除一条广告
+	//	8. 获取所有广告(带有分页和筛选)
+	
+	
+	
 	//获取一个广告分类   by  id
 	public AdvCategory getAdvCat(int id ) {
 		Session session = sessionFactory.openSession();

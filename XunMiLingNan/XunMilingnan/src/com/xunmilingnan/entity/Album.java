@@ -24,13 +24,12 @@ public class Album {
 	
 	public Album(){	}
 	
-	public Album(AdvCategory advCat, User user, String name, Date relTime, String img, int follow) {
+	public Album(AdvCategory advCat, User user, String name, Date relTime, String img) {
 		this.advCat = advCat;
 		this.user = user;
 		this.name = name;
 		this.relTime = relTime;
 		this.img = img;
-		this.follow = follow;
 	}
 	@Id
 	@GeneratedValue(generator="my_gen")
