@@ -95,8 +95,8 @@ public class RadioService {
 		return result.getRe();
 	}
 	//	4. (位于 follow Service)收藏某个节目(依据节目id和用户id)到用户收藏(用户)
-	public HashMap<String, Object> followProgram(int id ) {
-		return this.proAddOne(id, 2);
+	public void followProgram(int id ) {
+		this.proAddOne(id, 2);
 	}
 	//	5. (位于 follow Service)获取某个用户(依据用户id)收藏的所有节目(用户)
 	//	6. 获取某专辑下所有节目（按ID/发布时间倒序）

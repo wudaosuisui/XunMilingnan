@@ -25,7 +25,14 @@ public class NewsDao {
 		session.flush();
 		tra.commit();
 	}
-	
+	public void saveList(List<News> nelist ) {
+		Session session = sessionFactory.getCurrentSession();//获取sessio
+		Transaction tra = session.beginTransaction();//�?启事�?
+		for(News ne : nelist)
+			session.save(ne);
+		session.flush();
+		tra.commit();
+	}
 	/*get*/
 	public List<News> getList(){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from News");

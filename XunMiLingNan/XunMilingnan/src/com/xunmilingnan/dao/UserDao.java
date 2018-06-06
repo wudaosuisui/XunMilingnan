@@ -1,5 +1,6 @@
 package com.xunmilingnan.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import com.xunmilingnan.entity.Follow;
 import com.xunmilingnan.entity.User;
 
 @Repository
@@ -32,6 +34,19 @@ public class UserDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from User");
 		return q.list();
 	}
+	//follow list -> user list
+	public List<User> getUserListByFL(List<Follow> folList){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tra = session.beginTransaction();
+		List<User> usList = new ArrayList();
+		for(Follow fo : folList) {
+			User user = session.get(User.class, fo.getFsid());
+			usList.add(user);
+		}
+		tra.commit();
+		return usList;
+	}
+
 	public User getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();

@@ -14,12 +14,13 @@ import org.hibernate.annotations.GenericGenerator;
 public class AdvCategory {
 	private int id;
 	private String name;
-	private int type;//0 - 广告分类；1 - 电台分类；type 2 — 专题分类
+	private int type;
+	//0 - 广告分类；1 - 电台分类；type 2 — 专题分类
 	private int sortNumber;//排序编号   用于排序，编号越大，排越前，如果排序编号相同，则根据id大小进行排序
 	private String img;//电台分类的封面
 	
 	public AdvCategory() {}
-	
+	//全构造
 	public AdvCategory(String name,int type,int sortNumber,String img) {
 		this.name = name;
 		this.sortNumber = sortNumber;
@@ -30,10 +31,9 @@ public class AdvCategory {
 	public AdvCategory(String name,int type,int sortNumber) {
 		this.name = name;
 		this.sortNumber = sortNumber;
-		this.type = type;
+		this.type = type;//0
 	}
 	//构造一个电台分类
-
 	public AdvCategory(String name,  int sortNumber, String img) {
 		this.name = name;
 		this.type = 1;

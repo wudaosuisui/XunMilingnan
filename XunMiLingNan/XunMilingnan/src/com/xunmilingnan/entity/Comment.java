@@ -18,7 +18,7 @@ public class Comment {
 	
 	private int id;
 	private boolean auditing;//是否被润许显示
-	private Admin admin;//审核人  多对一
+	private User admin;//审核人  多对一
 	private Comment reply;//回复   一对一
 	private User user;//发布的用户   多对一
 	private Date time;//评论时间
@@ -28,7 +28,7 @@ public class Comment {
 	
 	public Comment(){}
 	
-	public Comment(boolean auditing, Admin admin, Comment reply, User user, Date time, String text,int type,int works) {
+	public Comment(boolean auditing, User admin, Comment reply, User user, Date time, String text,int type,int works) {
 		this.auditing = auditing;
 		this.admin = admin;
 		this.reply = reply;
@@ -38,13 +38,24 @@ public class Comment {
 		this.type = type;
 		this.works = works;
 	}
-	
-	public Comment(boolean auditing, Admin admin, User user, Date time, String text) {
-		this.auditing = auditing;
-		this.admin = admin;
+	//用户对文章或节目的评论
+	public Comment( User user, Date time, String text,int type,int works) {
 		this.user = user;
 		this.time = time;
 		this.text = text;
+		this.type = type;
+		this.works = works;
+	}
+	
+	//管理员的回复评论
+	public Comment(Comment reply, User user, Date time, String text,int type,int works) {
+		this.auditing = true;
+		this.reply = reply;
+		this.user = user;
+		this.time = time;
+		this.text = text;
+		this.type = type;
+		this.works = works;
 	}
 	
 	@Id
@@ -68,11 +79,11 @@ public class Comment {
 	}
 	@ManyToOne
 	@JoinColumn(name="co_ad_id")
-	public Admin getAdmin() {
+	public User getAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(Admin admin) {
+	public void setAdmin(User admin) {
 		this.admin = admin;
 	}
 	@OneToOne

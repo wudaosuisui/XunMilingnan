@@ -32,7 +32,7 @@ public class AdminDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Admin");
 		return q.list();
 	}
-	public Object getById(int id ) {
+	public Admin getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
 		Admin obj = session.get(Admin.class, id);

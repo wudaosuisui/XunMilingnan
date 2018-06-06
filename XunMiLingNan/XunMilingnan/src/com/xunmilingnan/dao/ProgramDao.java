@@ -21,7 +21,10 @@ public class ProgramDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
+	
 	private Uploads uploads = new Uploads();
+	
+	
 	/*save*/
 	public void save(Program obj ) {
 		Session session = sessionFactory.getCurrentSession();//获取sessio
@@ -93,8 +96,10 @@ public class ProgramDao {
 	public void deleteList(List<Program> list) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		for(Program pro : list)
-			session.delete(pro);	
+		for(Program pro : list) {
+			uploads.deleteRad(pro.getFMName());
+			session.delete(pro);
+		}
 		session.flush();
 		tra.commit();
 	}

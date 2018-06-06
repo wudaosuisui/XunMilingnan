@@ -29,7 +29,11 @@ public class SpecialTopicDao {
 	
 	/*get*/
 	public List<SpecialTopic> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from Activity");
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic");
+		return q.list();
+	}
+	public List<SpecialTopic> getListInStCat(int stcId){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic where SpeTopCat= "+stcId);
 		return q.list();
 	}
 	public SpecialTopic getById(int id ) {
@@ -56,8 +60,15 @@ public class SpecialTopicDao {
 		session.delete(act);
 		session.flush();
 		tra.commit();
-		
 	}
 	
-
+	public void deleteById(int id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		SpecialTopic st = new SpecialTopic();
+		st.setId(id);
+		session.delete(st);
+		session.flush();
+		tra.commit();
+	}
 }

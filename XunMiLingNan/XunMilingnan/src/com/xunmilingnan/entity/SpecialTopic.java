@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class SpecialTopic {
 	
 	private int id;
+	private AdvCategory SpeTopCat;
 	private String title;//标题
 	private Date startTime;//开始时间
 	private Date endTime;//截止时间
@@ -21,25 +24,25 @@ public class SpecialTopic {
 	private String img;//活动宣传图片（海报）
 	private int browse;//关注量
 	private Date showTime;//发布时间
-	private int isHot;//热门
+	private int isHot;//热门  0为非热门专题，1为热门专题
 	private int sort;//排序编号
 	
 	//空构造
 	public SpecialTopic() {}
 	//基本全构造
-	public SpecialTopic( String title, Date startTime, Date endTime, String article, String img, int browse,
+	public SpecialTopic(AdvCategory speTopCat, String title, Date startTime, Date endTime, String article, String img,
 			Date showTime, int isHot, int sort) {
+		SpeTopCat = speTopCat;
 		this.title = title;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.article = article;
 		this.img = img;
-		this.browse = browse;
+		browse = 0;
 		this.showTime = showTime;
 		this.isHot = isHot;
 		this.sort = sort;
 	}
-	
 	//setter & getter
 	@Id
 	@GeneratedValue(generator="my_gen")
@@ -48,8 +51,18 @@ public class SpecialTopic {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="ac_stcat")
+	public AdvCategory getSpeTopCat() {
+		return SpeTopCat;
+	}
+	public void setSpeTopCat(AdvCategory speTopCat) {
+		SpeTopCat = speTopCat;
 	}
 	@Column(name="ac_title")
 	public String getTitle() {

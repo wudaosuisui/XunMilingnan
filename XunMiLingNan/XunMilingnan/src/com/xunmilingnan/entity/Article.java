@@ -39,7 +39,17 @@ public class Article {//»î¶¯
 		this.forward = forward;
 		this.sort = sort;
 	}
-
+	public Article(SpecialTopic activity, User user, Date publishTime,String title,String text, int sort) {
+		this.activity = activity;
+		this.user = user;
+		this.publishTime = publishTime;
+		this.title = title;
+		this.text = text;
+		this.browse = 0;
+		this.praise = 0;
+		this.forward = 0;
+		this.sort = sort;
+	}
 
 	@Id
 	@GeneratedValue(generator="my_gen")

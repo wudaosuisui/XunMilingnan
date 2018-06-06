@@ -1,5 +1,6 @@
 package com.xunmilingnan.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import com.xunmilingnan.entity.Article;
+import com.xunmilingnan.entity.Follow;
 
 @Repository
 public class ArticleDao {
@@ -28,10 +30,33 @@ public class ArticleDao {
 	}
 	
 	/*get*/
+	//所有文章
 	public List<Article> getList(){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article");
 		return q.list();
 	}
+	//某专题下的所有文章
+	public List<Article> getListInSt(int stId){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where activity = " + stId);
+		return q.list();
+	}
+	//获取某用户所写的所有文章
+	public List<Article> getListInU(int uId){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where user = " + uId);
+		return q.list();
+	}
+	//follow list -> article list
+	public List<Article> getListByFollowList(List<Follow> foList){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tra = session.beginTransaction();
+		List<Article> artlist = new ArrayList(foList.size());
+		for(Follow fol : foList) {
+			artlist.add(session.get(Article.class, fol.getFsid()));
+		}
+		tra.commit();
+		return artlist;
+	}
+	
 	public Article getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
@@ -56,8 +81,15 @@ public class ArticleDao {
 		session.delete(obj);
 		session.flush();
 		tra.commit();
-		
 	}
-	
+	public void deleteById(int id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Article ar = new Article();
+		ar.setId(id);
+		session.delete(ar);
+		session.flush();
+		tra.commit();
+	}
 
 }

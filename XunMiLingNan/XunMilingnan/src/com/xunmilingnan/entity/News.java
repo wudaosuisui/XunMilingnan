@@ -13,23 +13,26 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class News {
 	private int id;
-	private Group gro;//所属分组   //组的标志  0 — 前台组；1 - 后台组；2 - 消息组(点赞、评论、关注等)
+	private int gro;//gro
+	//消息组：0 - 点赞消息组；1 - 评论消息；2 - 关注消息；3 - 更新文章通知消息;4- 更新节目通知
 	private User user;
 	private String message;//消息的内容 
 	private Boolean state;//状态  true 为已读  false  为未读
-	
+	private int jumpId;
 	public News() {}
 	
-	public News(Group gro, User user, String message) {
+	public News(int gro, User user, String message,int jumpId) {
 		this.gro = gro;
 		this.user = user;
 		this.message = message;
+		this.jumpId = jumpId;
 		this.state = false;
 	}
-	public News(Group gro, User user, String message, Boolean state) {
+	public News(int gro, User user, String message,int jumpId, Boolean state) {
 		this.gro = gro;
 		this.user = user;
 		this.message = message;
+		this.jumpId = jumpId;
 		this.state = state;
 	}
 	@Id
@@ -43,13 +46,13 @@ public class News {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@ManyToOne
-	@JoinColumn(name="ne_gro")
-	public Group getGro() {
+	
+	@Column(name="ne_gro")
+	public int getGro() {
 		return gro;
 	}
 
-	public void setGro(Group gro) {
+	public void setGro(int gro) {
 		this.gro = gro;
 	}
 	@ManyToOne
@@ -69,6 +72,15 @@ public class News {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	@Column(name="ne_jumpId")
+	public int getJumpId() {
+		return jumpId;
+	}
+
+	public void setJumpId(int jumpId) {
+		this.jumpId = jumpId;
+	}
+
 	@Column(name="ne_state")
 	public Boolean getState() {
 		return state;

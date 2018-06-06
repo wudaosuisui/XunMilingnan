@@ -27,8 +27,23 @@ public class FollowDao {
 	}
 	
 	/*get*/
+	//获取全部的follow  （基本没什么用）
+	public List<Follow> getList(){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow");
+		return q.list();
+	}
 	public List<Follow> getList(int uId){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +uId);
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = "+ uId);
+		return q.list();
+	}
+	//user + type  -> fsid list
+	public List<Follow> getListByUT(int userId,int type){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +userId+" and type="+type);
+		return q.list();
+	}
+	//fsid + type -> user list
+	public List<Follow> getListByFT(int fsid,int type){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where fsid = " +fsid+" and type="+type);
 		return q.list();
 	}
 	public Follow getById(int id ) {
