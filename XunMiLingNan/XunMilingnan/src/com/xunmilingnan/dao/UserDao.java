@@ -34,6 +34,10 @@ public class UserDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from User");
 		return q.list();
 	}
+	public List<User> getList(String ret){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where userName =?"+ret+"?");
+		return q.list();
+	}
 	//follow list -> user list
 	public List<User> getUserListByFL(List<Follow> folList){
 		Session session = sessionFactory.getCurrentSession();

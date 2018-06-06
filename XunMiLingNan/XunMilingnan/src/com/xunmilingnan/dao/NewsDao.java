@@ -38,6 +38,10 @@ public class NewsDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from News");
 		return q.list();
 	}
+	public List<News> getListByUid(int uid){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uid);
+		return q.list();
+	}
 	public News getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tra = session.beginTransaction();
@@ -63,5 +67,25 @@ public class NewsDao {
 		session.flush();
 		tra.commit();
 		
+	}
+	public void deleteById(int Id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		News ne = new News();
+		ne.setId(Id);
+		session.delete(ne);
+		session.flush();
+		tra.commit();
+		
+	}
+	public void deleteByUidGro(int uId,int gro) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uId+"  and gro = "+gro);
+		List<News> newslist =  q.list();
+		for(News ne : newslist)
+			session.delete(ne);
+		session.flush();
+		tra.commit();
 	}
 }

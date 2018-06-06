@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-//活动
+//活动专题
 @Entity
 public class SpecialTopic {
 	

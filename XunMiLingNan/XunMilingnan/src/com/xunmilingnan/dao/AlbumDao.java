@@ -27,8 +27,13 @@ public class AlbumDao {
 	}
 	
 	/*get*/
+	
 	public List<Album> getList(int advCatid ){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Album where advCat ="+advCatid);
+		return q.list();
+	}
+	public List<Album> getList(String ret ){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Album where name =?"+ret+"?");
 		return q.list();
 	}
 	public Album getById(int id ) {

@@ -34,8 +34,8 @@ import com.xunmilingnan.statics.Result;
 @Repository
 @RequestMapping("/spectop")
 public class SpecialTopicController {
-	@Resource
-	private SessionFactory sessionFactory;
+//	@Resource
+//	private SessionFactory sessionFactory;
 	@Resource
 	private SpecialTopicService stService;
 	@Resource

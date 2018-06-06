@@ -39,6 +39,10 @@ public class ProgramDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program");
 		return q.list();
 	}
+	public List<Program> getList(String ret){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program where name = ?"+ret+"?");
+		return q.list();
+	}
 	public List<Program> getListByAlbumId(int id ){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Program where album="+id);
 		return q.list();

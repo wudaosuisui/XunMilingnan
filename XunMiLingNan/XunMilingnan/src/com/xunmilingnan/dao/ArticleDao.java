@@ -35,6 +35,10 @@ public class ArticleDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article");
 		return q.list();
 	}
+	public List<Article> getList(String ret){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where title = ?"+ret+"?");
+		return q.list();
+	}
 	//某专题下的所有文章
 	public List<Article> getListInSt(int stId){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where activity = " + stId);
