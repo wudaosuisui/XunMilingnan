@@ -41,10 +41,20 @@ public class FollowDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +userId+" and type="+type);
 		return q.list();
 	}
+	//user + type  -> fsid list
+	public int getCountByUT(int userId,int type){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +userId+" and type="+type);
+		return q.list().size();
+	}
 	//fsid + type -> user list
 	public List<Follow> getListByFT(int fsid,int type){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where fsid = " +fsid+" and type="+type);
 		return q.list();
+	}
+	//fsid + type -> user list
+	public int getCountByFT(int fsid,int type){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where fsid = " +fsid+" and type="+type);
+		return q.list().size();
 	}
 	public Follow getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();
@@ -70,7 +80,24 @@ public class FollowDao {
 		session.delete(obj);
 		session.flush();
 		tra.commit();
-		
 	}
-	
+	public void deleteById(int id) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Follow fo = new Follow();
+		fo.setId(id);
+		session.delete(fo);
+		session.flush();
+		tra.commit();
+	}
+	public void deleteListByUT(int uid,int type) {
+		Session session = sessionFactory.getCurrentSession(); 
+		Transaction tra = session.beginTransaction();
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Follow where user = " +uid+" and type="+type);
+		List<Follow> fl =  q.list();
+		for(Follow f : fl)
+			session.delete(f);
+		session.flush();
+		tra.commit();
+	}
 }

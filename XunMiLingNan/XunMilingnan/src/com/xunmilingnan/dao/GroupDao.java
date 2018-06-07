@@ -43,6 +43,11 @@ public class GroupDao {
 		return ug;
 	}
 	
+	public Group getBySign(String sign ) {
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User_group where sign = "+sign);
+		List<Group> gl = q.list();
+		return gl.get(0);
+	}
 	/*修改*/
 	public void upDate(Group ug) {
 		Session session = sessionFactory.getCurrentSession();

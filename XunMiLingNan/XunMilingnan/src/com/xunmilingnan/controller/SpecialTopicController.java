@@ -24,7 +24,7 @@ import com.xunmilingnan.entity.SpecialTopic;
 import com.xunmilingnan.entity.User;
 import com.xunmilingnan.service.AdmainService;
 import com.xunmilingnan.service.FollowService;
-import com.xunmilingnan.service.NewsService;
+import com.xunmilingnan.service.NewsAndRetrievalService;
 import com.xunmilingnan.service.SpecialTopicService;
 import com.xunmilingnan.service.UserService;
 import com.xunmilingnan.statics.ResponseJsonUtils;
@@ -41,7 +41,7 @@ public class SpecialTopicController {
 	@Resource
 	private UserService usService;
 	@Resource
-	private NewsService neService;
+	private NewsAndRetrievalService neService;
 	@Resource
 	private AdmainService adService;
 	@Resource

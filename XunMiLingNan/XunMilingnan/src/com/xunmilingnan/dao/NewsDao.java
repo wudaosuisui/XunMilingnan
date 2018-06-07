@@ -38,9 +38,15 @@ public class NewsDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from News");
 		return q.list();
 	}
+	//获取某用户的所有消息
 	public List<News> getListByUid(int uid){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uid);
 		return q.list();
+	}
+	//获取某用户的未读的消息数量
+	public int getCountInU(int uid){
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uid+" and state is"+false);
+		return q.list().size();
 	}
 	public News getById(int id ) {
 		Session session = sessionFactory.getCurrentSession();

@@ -49,6 +49,11 @@ public class ArticleDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where user = " + uId);
 		return q.list();
 	}
+	//获取某用户写的所有文章的数量
+	public int getCountInU(int uId) {
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Article where user = " + uId);
+		return q.list().size();
+	}
 	//follow list -> article list
 	public List<Article> getListByFollowList(List<Follow> foList){
 		Session session = sessionFactory.getCurrentSession();
