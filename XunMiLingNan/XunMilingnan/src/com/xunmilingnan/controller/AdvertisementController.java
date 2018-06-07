@@ -16,7 +16,7 @@ import com.xunmilingnan.service.AdvertisementService;
 import com.xunmilingnan.statics.ResponseJsonUtils;
 
 @Controller//关于广告的所有controller
-@Repository
+@Repository//已检测完毕
 @RequestMapping(value = "/adver")
 public class AdvertisementController {
 	@Resource

@@ -59,7 +59,7 @@ public class UserController {
 		ResponseJsonUtils.json(response, usService.followList(uId,pagNum,2));
 	}
 	//	5. 查看关注的某个用户（同1）
-	@RequestMapping("/foluse")
+	@RequestMapping("/getfoluse")
 	private void getUser(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId
 			) {
