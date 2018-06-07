@@ -6,12 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="user")
+//@Table(name="user")
 public class User {
 	private int id ;
 	private Group gro;//ÓÃ»§×é
@@ -87,6 +88,7 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@ManyToOne
 	public Group getGro() {
 		return gro;
 	}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xunmilingnan.entity.AdvCategory;
@@ -16,7 +17,7 @@ import com.xunmilingnan.statics.ResponseJsonUtils;
 
 @Controller//关于广告的所有controller
 @Repository
-@RequestMapping("/adver")
+@RequestMapping(value = "/adver")
 public class AdvertisementController {
 	@Resource
 	private AdvertisementService advService;
@@ -40,6 +41,7 @@ public class AdvertisementController {
 			@RequestParam(value="name") String name,
 			@RequestParam(value="sortNumber") int sortNumber
 			) {
+		System.out.println("get controller ");
 		//创建一个广告分类
 		AdvCategory advCat = new AdvCategory(name,0,sortNumber);
 		advCat.setId(aId);
@@ -47,10 +49,11 @@ public class AdvertisementController {
 		ResponseJsonUtils.json(response, advService.updAdvCat(advCat));
 	}
 	//	3. 删除广告分类
-	@PostMapping("/updadvcat")
+	@PostMapping("/deladvcat")
 	public void delAdvCat(HttpServletResponse response,
 			@RequestParam(value="aId") int aId
 			) {
+		System.out.println("get contoller");
 		ResponseJsonUtils.json(response, advService.delAdvCat(aId));
 	}
 	//	4. 获取所有广告分类(带有分页和筛选)
@@ -110,7 +113,7 @@ public class AdvertisementController {
 		ResponseJsonUtils.json(response, advService.getAdvList(pagNum));
 	}
 	//  9. 获取某个广告分类下的所有广告（带有分页和筛选）
-	@PostMapping("/getadvlist")
+	@PostMapping("/getadvlistinac")
 	public void getAdvListInAdvCat(HttpServletResponse response,
 			@RequestParam(value="acId") int acId,
 			@RequestParam(value="pagNum") int pagNum

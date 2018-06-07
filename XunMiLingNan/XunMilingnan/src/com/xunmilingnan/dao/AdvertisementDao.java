@@ -31,6 +31,7 @@ public class AdvertisementDao {
 	/*get*/
 	public List<Advertisement> getList(){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from Advertisement");
+		System.out.println("get list success");
 		return q.list();
 	}
 	public List<Advertisement> getListByAdvCatId(int id ){

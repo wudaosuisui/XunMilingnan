@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action = "adver/getalladvcat" method="post">
+pagNum: <input type="text" name="pagNum" value="1"><br>
+<input type="submit"><br>
+</form>
 <h3>XunMilingnan/radio/addradcat</h3>
 <form action = "radio/addradcat" method="post"
 enctype="multipart/form-data"> 

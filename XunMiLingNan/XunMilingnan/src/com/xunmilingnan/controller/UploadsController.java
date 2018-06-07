@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xunmilingnan.statics.ResponseJsonUtils;
 import com.xunmilingnan.statics.Uploads;

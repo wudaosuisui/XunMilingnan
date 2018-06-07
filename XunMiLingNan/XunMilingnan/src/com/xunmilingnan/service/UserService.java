@@ -325,4 +325,24 @@ public class UserService {
 		return use;
 	}
 	
+	//addGroup
+	public HashMap<String, Object> addGroup(Group gro){//type 4 - 文章浏览记录；5- 节目浏览记录
+		//返回值
+		Result result = new Result();
+		String statusCode =result.getStatusCode();//状态码
+		String desc = result.getDesc();//状态码描述
+		//执行操作
+		Session session = sessionFactory.openSession();
+		grDao.save(gro);
+		session.close();
+		Map message =new HashMap<String, Object>(1){{
+			put("group",gro);
+		}};
+		//存入返回值
+		result.getResult().put("message", message);
+		result.setStatusCode(statusCode);
+		result.setDesc(desc);
+		return result.getRe();
+	}
+	
 }

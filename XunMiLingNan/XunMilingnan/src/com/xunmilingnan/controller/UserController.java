@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.xunmilingnan.entity.Group;
 import com.xunmilingnan.service.UserService;
 import com.xunmilingnan.statics.ResponseJsonUtils;
 
@@ -97,7 +99,16 @@ public class UserController {
 			) {
 		ResponseJsonUtils.json(response, usService.delBrowseList(uId,type));
 	}
+	//Ìí¼ÓGroup 
+	@RequestMapping("/addgro")
+	private void addGroup(HttpServletResponse response,
+			@RequestParam(value="sign")  String sign,
+			@RequestParam(value="name")  String name,
+			@RequestParam(value="describe")  String describe
+			) {
+		Group gro = new Group(sign,name,describe);
+		ResponseJsonUtils.json(response, usService.addGroup(gro));
+	}
 
-	
 	
 }

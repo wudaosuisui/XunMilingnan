@@ -81,7 +81,7 @@ public class Page<T> {
 			totalPageNum=totalCount/pageSize;//
 		else
 			totalPageNum=totalCount/pageSize+1;
-//		
+			
 //		if(currentPageNum>1)//当前页是否是第一页
 //			prePageNum=currentPageNum-1;//上一页为当前页减一
 //		else
@@ -100,11 +100,11 @@ public class Page<T> {
 		this.pageSize = pageSize;
 	}
 	public List<T> getPartList(){
-//		if(currentPageNum==totalPageNum) {
-//			return list.subList((currentPageNum-1)*pageSize, totalCount); 
-//		}else {
-//			return list.subList((currentPageNum-1)*pageSize, currentPageNum*pageSize); 
-//		} 
-		return list.subList((currentPageNum-1)*pageSize, currentPageNum*pageSize); 
+		if(currentPageNum==totalPageNum) {
+			return list.subList((currentPageNum-1)*pageSize, totalCount); 
+		}else {
+			return list.subList((currentPageNum-1)*pageSize, currentPageNum*pageSize); 
+		} 
+//		return list.subList((currentPageNum-1)*pageSize, currentPageNum*pageSize); 
 	}
 }

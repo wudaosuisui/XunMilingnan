@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;

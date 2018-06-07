@@ -32,6 +32,7 @@ public class AdvertisementService {
 	
 	//	1. 添加广告分类
 	public HashMap<String, Object> addAdvCat(AdvCategory advCat){
+		System.out.println("get service ");
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Controller;

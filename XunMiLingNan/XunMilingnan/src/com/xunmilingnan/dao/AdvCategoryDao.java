@@ -34,7 +34,6 @@ public class AdvCategoryDao {
 	}
 	public List<AdvCategory> getRadioList(){
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from AdvCategory where type=1");// where AdvCategory.type>1
-		System.out.println("dao out success");
 		return q.list();
 	}
 	public List<AdvCategory> getAdvList(){
