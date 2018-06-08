@@ -91,7 +91,7 @@ public class ProgramDao {
 	public void deleteById(int id ) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		Program pro = getById(id);
+		Program pro = session.get(Program.class, id);
 		this.uploads.deleteRad(pro.getFMName());//删除对应的音频文件
 		session.delete(pro);
 		session.flush();

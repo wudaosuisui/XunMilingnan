@@ -56,8 +56,7 @@ public class RadioController {
 	//	1. 在一个专辑下添加（创建）一个节目（用户）
 	@PostMapping("/addprogram")//添加一个节目Program
 	public void addProgram(HttpServletResponse response,
-			@RequestParam(value="time")  Date time,//发布时间
-			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
+//			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
@@ -66,6 +65,9 @@ public class RadioController {
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
+		//创建发布时间
+		Date time = new Date();
+		Date longOfTime = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		ResponseJsonUtils.json(response, radioService.addProgram(pro));
@@ -80,8 +82,7 @@ public class RadioController {
 	@PostMapping("/updprogram")
 	public void updProgram(HttpServletResponse response,
 			@RequestParam(value="id")  int id,//发布时间
-			@RequestParam(value="time")  Date time,//发布时间
-			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
+//			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
@@ -90,6 +91,9 @@ public class RadioController {
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
+		//创建发布时间
+		Date time = new Date();
+		Date longOfTime = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		//输入此节目对象应有的id
@@ -153,41 +157,43 @@ public class RadioController {
 	//	1. 在一个电台分类下添加（创建）一个专辑（用户）/addalbum	
 	@PostMapping("/addalbum")//添加一个专辑
 	public void addAlbum(HttpServletResponse response,
-			@RequestParam(value="radCat") int radCat,
-			@RequestParam(value="user") int user,
+			@RequestParam(value="rcId") int rcId,
+			@RequestParam(value="uId") int uId,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="relTime") Date relTime,
 			@RequestParam(value="img")  String img
 			) {
 		//获取AdvCategory、User
-		AdvCategory rad = radioService.getRadCat(radCat);
-		User use = userService.getUserById(user);
+		AdvCategory rad = radioService.getRadCat(rcId);
+		User use = userService.getUserById(uId);
+		//创建一个时间
+		Date relTime = new Date();
 		//创建一个电台专辑
 		Album album = new Album(rad,use,name,relTime,img);
 		//存入并返回
 		ResponseJsonUtils.json(response, radioService.addAlbum(album));
 	}
 	//	2. 在一个电台分类下删除一个专辑（用户）/delealbum
-	@PostMapping("/delealbum")//删除一个专辑
+	@PostMapping("/delalbum")//删除一个专辑
 	public void delAlbum(HttpServletResponse response,
-			@RequestParam(value="albumid") int albumid
+			@RequestParam(value="aid") int aid
 			) {
 		//删除并返回
-		ResponseJsonUtils.json(response, radioService.delAlbum(albumid));
+		System.out.println("get controller");
+		ResponseJsonUtils.json(response, radioService.delAlbum(aid));
 	}
 	//	3. 在一个电台分类下更新一个专辑（用户）：更换封面、更改名字等操作/updalbum
 	@PostMapping("/updalbum")//更新一个专辑
 	public void updAlbum(HttpServletResponse response,
 			@RequestParam(value="alid") int alid,
-			@RequestParam(value="radCat") int radCat,
-			@RequestParam(value="user") int user,
+			@RequestParam(value="rcId") int rcId,
+			@RequestParam(value="uId") int uId,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="relTime") Date relTime,
 			@RequestParam(value="img")  String img
 			) {
 		//获取AdvCategory、User
-		AdvCategory rad = radioService.getRadCat(radCat);
-		User use = userService.getUserById(user);
+		AdvCategory rad = radioService.getRadCat(rcId);
+		User use = userService.getUserById(uId);
+		Date relTime  = new Date();
 		//创建一个电台专辑
 		Album album = new Album(rad,use,name,relTime,img);
 		album.setId(alid);
@@ -196,8 +202,10 @@ public class RadioController {
 	}
 	//	4. 获取一个电台分类下的所有专辑（按ID/创建时间倒序）/getallalbum
 	@PostMapping("/getallalbum")//获取专辑列表
-	public void getAllAlbum(HttpServletResponse response,int advCatid,int pagNum) {//pagNum 欲获取的分页
-		ResponseJsonUtils.json(response,radioService.getAlbumList(advCatid,pagNum));
+	public void getAllAlbum(HttpServletResponse response,
+			@RequestParam(value="acId") int acid,
+			@RequestParam(value="pagNum") int pagNum) {//pagNum 欲获取的分页
+		ResponseJsonUtils.json(response,radioService.getAlbumList(acid,pagNum));
 	}
 	
 	
@@ -218,30 +226,29 @@ public class RadioController {
 	//	2. 删除一个电台分类/delradcat
 	@PostMapping("/delradcat")
 	public void deleteRadioCategory(HttpServletResponse response,
-			@RequestParam(value="radCatId") int id
+			@RequestParam(value="rcId") int rcId
 			) {
-		ResponseJsonUtils.json(response,radioService.deleteRadCat(id));
+		ResponseJsonUtils.json(response,radioService.deleteRadCat(rcId));
 	}
 	//	3. 更新一个电台分类/updradcat
 	@PostMapping("/updradcat")
 	public void updateRadioCategory( HttpServletResponse response,
-			@RequestParam(value="radCatId") int id,
+			@RequestParam(value="rcId") int rcId,
 			@RequestParam(value="name") String name,
 			@RequestParam(value="sortNumber") int sortNumber,//排序编号	
 			@RequestParam(value="img") String img//上传来的图像
 			) {
-		//获取这个AdvCategory
-		AdvCategory advCat = radioService.getRadCat(id);
-		//将各个属性赋值成新的值
-		advCat.setName(name);
-		advCat.setSortNumber(sortNumber);
-		advCat.setImg(img);
+		//创建一个“电台分类”的AdvCategory
+		AdvCategory advCat = new AdvCategory(name,sortNumber,img);
+		//将id 输入
+		advCat.setId(rcId);
 		//更新AdvCategory  并返回 
 		ResponseJsonUtils.json(response, radioService.updRadCat(advCat));
 	}
 	//	4. 获取所有电台分类(带有分页和筛选) /getalladcat
 	@PostMapping("/getalladcat")//带有分页功能
-	public void getAllRadioCategory(HttpServletResponse response,int pagNum) {//pagNum 欲获取的分页
+	public void getAllRadioCategory(HttpServletResponse response,
+			@RequestParam(value="pagNum")int pagNum) {//pagNum 欲获取的分页
 		ResponseJsonUtils.json(response, radioService.getAdvCatList(pagNum));
 	}
 	

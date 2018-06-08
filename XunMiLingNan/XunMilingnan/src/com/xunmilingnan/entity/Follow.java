@@ -37,7 +37,7 @@ public class Follow {
 		this.id = id;
 	}
 	@ManyToOne
-	@JoinColumn(name="of_uid")
+	@JoinColumn(name="fo_uid")
 	public User getUser() {
 		return user;
 	}

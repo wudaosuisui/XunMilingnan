@@ -102,7 +102,7 @@ public class Program {
 		this.name = name;
 	}
 	
-	@JoinColumn(name="pr_advCat")
+	@Column(name="pr_advCat")
 	public int getAdvCat() {
 		return advCat;
 	}

@@ -156,7 +156,7 @@ public class RadioService {
 		String statusCode =result.getStatusCode();//×´Ì¬Âë
 		String desc = result.getDesc();//×´Ì¬ÂëÃèÊö
 		//Ö´ĞĞ²Ù×÷
-		Program pro = this.getProgram(id);
+		Program pro = proDao.getById(id);
 		if(type ==0) {
 			pro.setPraise(pro.getPraise()+1);
 		}else if(type==1) {

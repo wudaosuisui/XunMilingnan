@@ -65,8 +65,8 @@ public class AlbumDao {
 	public void deleteById(int id) {
 		Session session = sessionFactory.getCurrentSession(); 
 		Transaction tra = session.beginTransaction();
-		Album album = new Album();
-		album.setId(id);
+		Album album = session.get(Album.class, id);
+//		album.setId(id);
 		session.delete(album);
 		session.flush();
 		tra.commit();

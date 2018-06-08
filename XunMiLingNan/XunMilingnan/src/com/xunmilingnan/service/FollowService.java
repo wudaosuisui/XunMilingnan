@@ -41,6 +41,7 @@ public class FollowService {
 		//Ö´ÐÐ²Ù×÷
 		Session session = sessionFactory.openSession();
 		followDao.save(fo);
+		System.out.println("save fo ");
 		session.close();
 		Map message =new HashMap<String, Object>(2)
 		{{
