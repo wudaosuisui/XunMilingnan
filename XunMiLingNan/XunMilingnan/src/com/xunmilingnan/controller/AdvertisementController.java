@@ -59,18 +59,19 @@ public class AdvertisementController {
 	//	4. 获取所有广告分类(带有分页和筛选)
 	@PostMapping("/getalladvcat")
 	public void getAllAdvCat(HttpServletResponse response,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response, advService.getAllAdvCat(pagNum));
+		ResponseJsonUtils.json(response, advService.getAllAdvCat(pagNum,limit));
 	}
 	//	5. 添加一条广告
 	@PostMapping("/addadv")
 	public void addAdvertisement(HttpServletResponse response,
-			@RequestParam(value="advCatId") int advCatId,
-			@RequestParam(value="title") String title,
-			@RequestParam(value="img") String img,
-			@RequestParam(value="url") String url,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="advCatId",required=false) int advCatId,
+			@RequestParam(value="title",required=false) String title,
+			@RequestParam(value="img",required=false) String img,
+			@RequestParam(value="url",required=false) String url,
+			@RequestParam(value="sortNumber",required=false) int sortNumber
 			) {
 		//获取广告类型
 		AdvCategory advCat = advService.getAdvCat(advCatId);

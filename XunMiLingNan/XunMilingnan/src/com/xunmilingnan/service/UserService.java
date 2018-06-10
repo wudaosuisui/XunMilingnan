@@ -1,5 +1,10 @@
 package com.xunmilingnan.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,9 +59,55 @@ public class UserService {
 	private ProgramDao prDao;
 	
 	
-	private static String  url= 
-			"https://api.weixin.qq.com/sns/jscode2session?appid=wx2aa0d2c4ba67c9c7&secret=ec7abc04967536d55102800563932d09&grant_type=authorization_code";//&js_code=JSCODE
+	private static String  url= "https://api.weixin.qq.com/sns/jscode2session?";//&js_code=JSCODE
+	private static String appid = "&appid=wx2aa0d2c4ba67c9c7";
+	private static String secret = "&secret=ec7abc04967536d55102800563932d09";
+	private static String grant_type = "&grant_type=authorization_code";
+	private static String js_code = new String();
 	private static Page page = new Page(10);
+	
+	//https://api.weixin.qq.com/sns/jscode2session?
+	//appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+	//访问url 静态方法
+	public static String getURLContent(String urlStr) {                 
+        
+        //请求的url   
+        URL url = null;        
+          
+        //建立的http链接    
+        HttpURLConnection httpConn = null;    
+          
+        //请求的输入流  
+        BufferedReader in = null;     
+          
+        //输入流的缓冲  
+        StringBuffer sb = new StringBuffer();   
+          
+        try{       
+             url = new URL(urlStr);       
+               
+             in = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8") );   
+               
+             String str = null;    
+              
+             //一行一行进行读入  
+             while((str = in.readLine()) != null) {      
+                sb.append( str );       
+             }       
+        } catch (Exception ex) {     
+                  
+        } finally{      
+             try{               
+                  if(in!=null) {    
+                   in.close(); //关闭流      
+                  }       
+            }catch(IOException ex) {        
+              
+            }       
+        }       
+        String result =sb.toString();       
+        return result;      
+    }    
 	//登录
 	public HashMap<String, Object> login(String code){
 		//返回值
@@ -64,19 +115,28 @@ public class UserService {
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
-		String Url = url +"&js_code=" + code;//将code存入url
+		js_code = "&js_code="+code;
+		String Url = url +appid+secret+grant_type+js_code;//将code存入url
 		Map pr =new  HashMap<String, String>(0);//一个空的json参数表
-		String jsoStr = HttpClientTool.doGet(url,pr);//获取返回值json String
+//		String jsoStr = HttpClientTool.doGet(Url,pr);//获取返回值json String
+		String jsoStr = getURLContent(Url);
 		JSONObject jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
+		String openid = jsonObject.getString("openid");
+		String session_key = jsonObject.getString("session_key");
 		
-
 		Session session = sessionFactory.openSession();
-		User  user = usDao.getBySession_key(jsonObject.getString("session_key"));//尝试通过session_key获取user
+		User  user = usDao.getByOpenid(jsonObject.getString("openid"));//尝试通过unionid获取user
 		if(user==null) {//如果user为空   执行注册操作  否则返回user即可
-			user = this.register(jsonObject.getString("openid"),jsonObject.getString("session_key"));
+			statusCode = "130000";
+			desc ="此用户为首次登录";
+			Date time = new Date();
+			user = this.register(openid, session_key,time);
+			usDao.save(user);
 		}
 		session.close();
 		Map message =new HashMap<String, Object>(1);
+//			put("openid",openid);
+//			put("session_key",session_key);
 		message.put("user",user);
 		//存入返回值
 		result.getResult().put("message", message);
@@ -84,41 +144,72 @@ public class UserService {
 		result.setDesc(desc);
 		return result.getRe();
 	}
-	//注册
-	public User register(String openid ,String session_key) {
-		String url1 = "https://api.weixin.qq.com/cgi-bin/grant_type=client_credential&appid=wx2aa0d2c4ba67c9c7 &secret=ec7abc04967536d55102800563932d09 ";//token?
-		
-		Map pr =new  HashMap<String, String>(0);//一个空的json参数表
-		String jsoStr = HttpClientTool.doGet(url1,pr);//获取返回值json String
-		JSONObject jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
-		
-		String accessToken =jsonObject.getString("access_token");
-		String params = "access_token="+accessToken+"&openid="+openid+"&lang=zh_CN";
-		String Url = url + params;
-		jsoStr = HttpClientTool.doGet(Url,pr);//获取返回值json String
-		jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
-		Group gro = grDao.getBySign("0");
-		Date time = new Date();
-		User user = new User(gro,//用户组
-				session_key,//key
-				openid,
-				jsonObject.getString("nickname"),//用户名
-				jsonObject.getString("headimgurl"),//头像
-				"token",
-				jsonObject.getString("unionid"),//唯一标识符
-				jsonObject.getString("city"),//城市
-				jsonObject.getString("province"),//省份
-				jsonObject.getString("country"),//国家
-				jsonObject.getString("language"),//语言(未确定)
-				(Integer)jsonObject.get("sex"),//性别
-				"000000000",//预留字符
-				"000000000",//电话
-				time//创建日期
-				);
-		usDao.save(user);
+	
+	public User register(String openid ,String session_key,Date time) {
+		User user = new User();
+		user.setOpenid(openid);
+		user.setSession_key(session_key);
+		user.setTime(time);
 		return user;
-		
 	}
+	public HashMap<String, Object> updateUser(User user){
+		//返回值
+		Result result = new Result();
+		String statusCode =result.getStatusCode();//状态码
+		String desc = result.getDesc();//状态码描述
+		//执行操作
+		Session session = sessionFactory.openSession();
+		Group gro = grDao.getBySign("0");
+		user.setGro(gro);
+		usDao.upDate(user);
+		session.close();
+		Map message =new HashMap<String, Object>(1){{
+			put("user",user);
+		}};
+		//存入返回值
+		result.getResult().put("message", message);
+		result.setStatusCode(statusCode);
+		result.setDesc(desc);
+		return result.getRe();
+	}
+//	public Group getGroup(String si) {
+//		Group gro = grDao.getBySign("0");
+//	}
+	//注册
+//	public User register(String openid ,String session_key) {
+//		String url1 = "https://api.weixin.qq.com/cgi-bin/grant_type=client_credential&appid=wx2aa0d2c4ba67c9c7 &secret=ec7abc04967536d55102800563932d09 ";//token?
+//		
+//		Map pr =new  HashMap<String, String>(0);//一个空的json参数表
+//		String jsoStr = HttpClientTool.doGet(url1,pr);//获取返回值json String
+//		JSONObject jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
+//		
+//		String accessToken =jsonObject.getString("access_token");
+//		String params = "access_token="+accessToken+"&openid="+openid+"&lang=zh_CN";
+//		String Url = url + params;
+//		jsoStr = HttpClientTool.doGet(Url,pr);//获取返回值json String
+//		jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
+//		Group gro = grDao.getBySign("0");
+//		Date time = new Date();
+//		User user = new User(gro,//用户组
+//				session_key,//key
+//				openid,
+//				jsonObject.getString("nickname"),//用户名
+//				jsonObject.getString("headimgurl"),//头像
+//				"token",
+//				jsonObject.getString("unionid"),//唯一标识符
+//				jsonObject.getString("city"),//城市
+//				jsonObject.getString("province"),//省份
+//				jsonObject.getString("country"),//国家
+//				jsonObject.getString("language"),//语言(未确定)
+//				(Integer)jsonObject.get("sex"),//性别
+//				"000000000",//预留字符
+//				"000000000",//电话
+//				time//创建日期
+//				);
+//		usDao.save(user);
+//		return user;
+//		
+//	}
 	
 	//	1. 查看个人主页
 	public HashMap<String, Object> homePage(int uId){

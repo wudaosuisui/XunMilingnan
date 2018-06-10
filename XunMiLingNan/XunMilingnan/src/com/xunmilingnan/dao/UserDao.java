@@ -58,8 +58,8 @@ public class UserDao {
 		tra.commit();
 		return obj;
 	}
-	public User getBySession_key(String key ) {
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where session_key ="+key);
+	public User getByOpenid(String key ) {
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where openid ="+key);
 		List<User> ul =  q.list();
 		return ul.get(0);
 	}

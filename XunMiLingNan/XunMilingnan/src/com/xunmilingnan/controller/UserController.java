@@ -12,6 +12,7 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xunmilingnan.entity.Group;
+import com.xunmilingnan.entity.User;
 import com.xunmilingnan.service.UserService;
 import com.xunmilingnan.statics.ResponseJsonUtils;
 
@@ -27,6 +28,20 @@ public class UserController {
 	private void logIn(HttpServletResponse response,
 			@RequestParam(value="code")  String code) {
 		ResponseJsonUtils.json(response, usService.login(code));
+	}
+	//注册
+	@RequestMapping("/register")
+	private void register(HttpServletResponse response,
+			@RequestParam(value="uId")  int uId,
+			@RequestParam(value="avatarUrl")  String avatarUrl,
+			@RequestParam(value="city")  String city,
+			@RequestParam(value="country")  String country,
+			@RequestParam(value="language")  String language,
+			@RequestParam(value="nickName")  String nickName,
+			@RequestParam(value="province")  String province
+			) {
+		User user = new User(uId,avatarUrl,city,country,language,nickName,province);
+		ResponseJsonUtils.json(response, usService.updateUser(user));
 	}
 	//	1. 查看个人主页
 	@RequestMapping("/homepage")

@@ -79,7 +79,18 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.time = time;
 	}
-	
+	public User(int id, String avatarUrl, String city,
+			String country, String language,String username,
+			String province
+			) {
+		this.id = id;
+		this.avatarUrl = avatarUrl;
+		this.city = city;
+		this.country = country;
+		this.language = language;
+		this.userName = username;
+		this.province = province;
+	}
 	@Id
 	@GeneratedValue(generator="my_gen")
     @GenericGenerator(name="my_gen", strategy="increment")	

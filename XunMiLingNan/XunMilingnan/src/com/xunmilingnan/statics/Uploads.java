@@ -10,11 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public  class Uploads {
 	//WebContentUrl地址
-	private static String  WebContentUrl ="F:\\Documents\\GitHub\\XunMilingnan\\XunMiLingNan\\XunMilingnan\\WebContent\\";
+//	private static String  WebContentUrl ="F:\\Documents\\GitHub\\XunMilingnan\\XunMiLingNan\\XunMilingnan\\WebContent\\";
 	//图片的地址
-	private static String  ImgsUrl="F:\\Documents\\GitHub\\XunMilingnan\\XunMiLingNan\\XunMilingnan\\WebContent\\img\\";
+	private static String  ImgsUrl="/var/www/files/img/";
 	//音频的地址
-	private static String RadioUrl="F:\\Documents\\GitHub\\XunMilingnan\\XunMiLingNan\\XunMilingnan\\WebContent\\radio\\";
+	private static String RadioUrl="/var/www/files/radio/";
 	
 	
 	
@@ -70,7 +70,7 @@ public  class Uploads {
 		//存入返回值
         Map message = new HashMap<String,Object>(3)
         {{
-			put("fileUrl",url);//存储地址
+//			put("fileUrl",url);//存储地址
 			put("fileName",picName);//图片名称
 			put("extName",extName);//图片后缀
 		}};

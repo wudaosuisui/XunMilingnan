@@ -89,13 +89,14 @@ public class AdvertisementService {
 		return result.getRe();
 	}
 	//	4. 获取所有广告分类(带有分页和筛选)
-	public HashMap<String, Object> getAllAdvCat(int pagNum){
+	public HashMap<String, Object> getAllAdvCat(int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		page.setPageSize(limit);
 		page.setList(advCatDao.getAdvList());
 		page.setCurrentPageNum(pagNum);
 		session.close();
