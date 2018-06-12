@@ -54,6 +54,7 @@ public class SpecialTopicController {
 	public void addArticle(HttpServletResponse response,
 			@RequestParam(value="stId") int stId,
 			@RequestParam(value="userId") int userId,
+			@RequestParam(value="publishTime") String publishTime,
 			@RequestParam(value="title") String title,
 			@RequestParam(value="text") String text,
 			@RequestParam(value="sortNumber") int sortNumber
@@ -62,7 +63,6 @@ public class SpecialTopicController {
 		SpecialTopic st = stService.getSpecialTopicById(stId);
 		//获取user
 		User user = usService.getUserById(userId);
-		Date publishTime = new Date();
 		//创建文章对象
 		Article art = new Article(st,user,publishTime,title,text,sortNumber);
 		//存入
@@ -80,7 +80,7 @@ public class SpecialTopicController {
 			@RequestParam(value="arId") int arId,
 			@RequestParam(value="stId") int stId,
 			@RequestParam(value="userId") int userId,
-			@RequestParam(value="publishTime") Date publishTime,
+			@RequestParam(value="publishTime") String publishTime,
 			@RequestParam(value="title") String title,
 			@RequestParam(value="text") String text,
 			@RequestParam(value="sortNumber") int sortNumber
@@ -128,7 +128,7 @@ public class SpecialTopicController {
 	public void commentArtic(HttpServletResponse response,
 			@RequestParam(value="arId") int arId,//文章的id
 			@RequestParam(value="cusId") int cusId,//评论者的id
-			@RequestParam(value="time") Date time,//评论时间
+			@RequestParam(value="time") String time,//评论时间
 			@RequestParam(value="text") String text//评论内容
 			) {
 		//获取评论的user
@@ -143,13 +143,13 @@ public class SpecialTopicController {
 	public void replayComment(HttpServletResponse response,
 			@RequestParam(value="adId") int adId,//管理员的id
 			@RequestParam(value="comId") int comId,//被回复的“评论”
+			@RequestParam(value="time") String time,//评论时间
 			@RequestParam(value="text") String text//回复内容
 			) {
 		//admin
 		User ad = usService.getUserById(adId);
 		//comment
 		Comment com = stService.getCommentById(comId);
-		Date time = new Date();
 		//创建一个“评论”
 		Comment rep = new Comment(com,ad,time,text,com.getType(),com.getWorks());
 		//存入并返回

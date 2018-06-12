@@ -18,7 +18,7 @@ public class Article {//活动
 	private int id ;
 	private SpecialTopic activity;//活动id  多对一
 	private User user;//用户（作者）id 多对一
-	private Date publishTime;//发表时间
+	private String publishTime;//发表时间
 	private String title;//文章标题
 	private String text;//文章内容
 	private int forward;//收藏量
@@ -28,7 +28,7 @@ public class Article {//活动
 	
 	public Article(){}
 
-	public Article(SpecialTopic activity, User user, Date publishTime,String title,String text, int browse, int praise, int forward,int sort) {
+	public Article(SpecialTopic activity, User user, String publishTime,String title,String text, int browse, int praise, int forward,int sort) {
 		this.activity = activity;
 		this.user = user;
 		this.publishTime = publishTime;
@@ -39,7 +39,7 @@ public class Article {//活动
 		this.forward = forward;
 		this.sort = sort;
 	}
-	public Article(SpecialTopic activity, User user, Date publishTime,String title,String text, int sort) {
+	public Article(SpecialTopic activity, User user, String publishTime,String title,String text, int sort) {
 		this.activity = activity;
 		this.user = user;
 		this.publishTime = publishTime;
@@ -84,11 +84,11 @@ public class Article {//活动
 		this.user = user;
 	}
 	@Column(name="ar_publishtime")
-	public Date getPublishTime() {
+	public String getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublishTime(Date publishTime) {
+	public void setPublishTime(String publishTime) {
 		this.publishTime = publishTime;
 	}
 	@Column(name="ar_text")

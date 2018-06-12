@@ -135,8 +135,7 @@ public class UserService {
 //				System.out.println("get if success");
 				statusCode = "130000";
 				desc ="此用户为首次登录";
-				Date time = new Date();
-				user = this.register(openid, session_key,time);
+				user = this.register(openid, session_key);
 				usDao.save(user);
 			}
 			session.close();
@@ -149,12 +148,11 @@ public class UserService {
 		return result.getRe();
 	}
 	
-	public User register(String openid ,String session_key,Date time) {
+	public User register(String openid ,String session_key) {
 		User user = new User();
 		Group gro = grDao.getBySign("1");
 		user.setOpenid(openid);
 		user.setSession_key(session_key);
-		user.setTime(time);
 		user.setGro(gro);
 		return user;
 	}

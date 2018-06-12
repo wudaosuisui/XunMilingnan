@@ -16,11 +16,11 @@ public class Admin {
 	private String userName;
 	private String passWord;
 	private Group userg;//用户组  多对一
-	private Date time;//创建时间
+	private String time;//创建时间
 	
 	public Admin() {}
 	
-	public Admin(String userName, String passWord, Group userg, Date time) {
+	public Admin(String userName, String passWord, Group userg, String time) {
 		this.userName = userName;
 		this.passWord = passWord;
 		this.userg = userg;
@@ -64,11 +64,11 @@ public class Admin {
 		this.userg = userg;
 	}
 	@Column(name="adm_time")
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	

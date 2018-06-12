@@ -56,6 +56,7 @@ public class RadioController {
 	//	1. 在一个专辑下添加（创建）一个节目（用户）
 	@PostMapping("/addprogram")//添加一个节目Program
 	public void addProgram(HttpServletResponse response,
+			@RequestParam(value="time") String time,//发布时间
 			@RequestParam(value="longOfTime") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
@@ -65,9 +66,6 @@ public class RadioController {
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
-		//创建发布时间
-		Date time = new Date();
-//		Date longOfTime = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		ResponseJsonUtils.json(response, radioService.addProgram(pro));
@@ -81,7 +79,8 @@ public class RadioController {
 	//	3. 在一个专辑下更新一个节目（用户）：更改名称等
 	@PostMapping("/updprogram")
 	public void updProgram(HttpServletResponse response,
-			@RequestParam(value="id")  int id,//发布时间
+			@RequestParam(value="id")  int id,
+			@RequestParam(value="time") String time,//发布时间
 			@RequestParam(value="longOfTime") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
@@ -91,8 +90,6 @@ public class RadioController {
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
-		//创建发布时间
-		Date time = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		//输入此节目对象应有的id
@@ -160,6 +157,7 @@ public class RadioController {
 	@PostMapping("/addalbum")//添加一个专辑
 	public void addAlbum(HttpServletResponse response,
 			@RequestParam(value="rcId") int rcId,
+			@RequestParam(value="relTime") String relTime,
 			@RequestParam(value="uId") int uId,
 			@RequestParam(value="name") String name,
 			@RequestParam(value="img")  String img
@@ -167,8 +165,6 @@ public class RadioController {
 		//获取AdvCategory、User
 		AdvCategory rad = radioService.getRadCat(rcId);
 		User use = userService.getUserById(uId);
-		//创建一个时间
-		Date relTime = new Date();
 		//创建一个电台专辑
 		Album album = new Album(rad,use,name,relTime,img);
 		//存入并返回
@@ -187,6 +183,7 @@ public class RadioController {
 	@PostMapping("/updalbum")//更新一个专辑
 	public void updAlbum(HttpServletResponse response,
 			@RequestParam(value="alid") int alid,
+			@RequestParam(value="relTime") String relTime,
 			@RequestParam(value="rcId") int rcId,
 			@RequestParam(value="uId") int uId,
 			@RequestParam(value="name") String name,
@@ -195,7 +192,6 @@ public class RadioController {
 		//获取AdvCategory、User
 		AdvCategory rad = radioService.getRadCat(rcId);
 		User use = userService.getUserById(uId);
-		Date relTime  = new Date();
 		//创建一个电台专辑
 		Album album = new Album(rad,use,name,relTime,img);
 		album.setId(alid);

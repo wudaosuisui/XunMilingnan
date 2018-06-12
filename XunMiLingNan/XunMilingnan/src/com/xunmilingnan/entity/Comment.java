@@ -21,14 +21,14 @@ public class Comment {
 	private User admin;//审核人  多对一
 	private Comment reply;//回复   一对一
 	private User user;//发布的用户   多对一
-	private Date time;//评论时间
+	private String time;//评论时间
 	private String text;//评论内容
 	private int type;//0为文章，1为电台节目
 	private int works;//电台节目ID/文章ID
 	
 	public Comment(){}
 	
-	public Comment(boolean auditing, User admin, Comment reply, User user, Date time, String text,int type,int works) {
+	public Comment(boolean auditing, User admin, Comment reply, User user, String time, String text,int type,int works) {
 		this.auditing = auditing;
 		this.admin = admin;
 		this.reply = reply;
@@ -39,7 +39,7 @@ public class Comment {
 		this.works = works;
 	}
 	//用户对文章或节目的评论
-	public Comment( User user, Date time, String text,int type,int works) {
+	public Comment( User user, String time, String text,int type,int works) {
 		this.user = user;
 		this.time = time;
 		this.text = text;
@@ -48,7 +48,7 @@ public class Comment {
 	}
 	
 	//管理员的回复评论
-	public Comment(Comment reply, User user, Date time, String text,int type,int works) {
+	public Comment(Comment reply, User user, String time, String text,int type,int works) {
 		this.auditing = true;
 		this.reply = reply;
 		this.user = user;
@@ -105,11 +105,11 @@ public class Comment {
 		this.user = user;
 	}
 	@Column(name="co_time")
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	@Column(name="co_text")

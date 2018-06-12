@@ -18,13 +18,13 @@ public class Album {
 	private AdvCategory advCat;
 	private User user;
 	private String name;
-	private Date relTime;//发布时间 releaseTime
+	private String relTime;//发布时间 releaseTime
 	private String img;//封面
 	private int follow;//关注量
 	
 	public Album(){	}
 	
-	public Album(AdvCategory advCat, User user, String name, Date relTime, String img) {
+	public Album(AdvCategory advCat, User user, String name, String relTime, String img) {
 		this.advCat = advCat;
 		this.user = user;
 		this.name = name;
@@ -69,11 +69,11 @@ public class Album {
 		this.name = name;
 	}
 	@Column(name="al_relTime")
-	public Date getRelTime() {
+	public String getRelTime() {
 		return relTime;
 	}
 
-	public void setRelTime(Date relTime) {
+	public void setRelTime(String relTime) {
 		this.relTime = relTime;
 	}
 	@Column(name="al_img")

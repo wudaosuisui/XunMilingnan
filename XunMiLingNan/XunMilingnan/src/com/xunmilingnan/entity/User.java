@@ -30,7 +30,7 @@ public class User {
 	private int  sex;//性别   值为1时是男性，值为2时是女性，值为0时是未知
 	private String encryptedData;//预留字段
 	private String phoneNumber;//注册手机号
-	private Date time;//注册时间
+	private String time;//注册时间
 	private String userProfile;//用户简介
 	//空构造
 	public User() {
@@ -40,7 +40,7 @@ public class User {
 			String userName, String avatarUrl, String token,
 			String unionid, String city, String province,
 			String country, String language, int sex,
-			String encryptedData, String phoneNumber, Date time,
+			String encryptedData, String phoneNumber, String time,
 			String userProfile) {
 		this.gro = gro;
 		this.session_key = session_key;
@@ -62,7 +62,7 @@ public class User {
 	//除 id  用户简介的 全构造
 	public User(Group gro, String session_key, String openid, String userName, String avatarUrl, String token,
 			String unionid, String city, String province, String country, String language, int sex,
-			String encryptedData, String phoneNumber, Date time) {
+			String encryptedData, String phoneNumber, String time) {
 		this.gro = gro;
 		this.session_key = session_key;
 		this.openid = openid;
@@ -186,10 +186,10 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public String getUserProfile() {
@@ -198,7 +198,5 @@ public class User {
 	public void setUserProfile(String userProfile) {
 		this.userProfile = userProfile;
 	}
-	
-	
 	
 }

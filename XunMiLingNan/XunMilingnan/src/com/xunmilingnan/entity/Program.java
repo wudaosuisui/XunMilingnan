@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Program {
 	
 	private int id;
-	private Date time;//发布时间
+	private String time;//发布时间
 	private int praise;//点赞-0
 	private int browse;//听取-1
 	private int follow;//关注 收藏-2
@@ -29,7 +29,7 @@ public class Program {
 
 	public Program() {}
 	
-	public Program(Date time, String longOfTime, String name, int advCat,Album album,
+	public Program(String time, String longOfTime, String name, int advCat,Album album,
 			String fMName, int sortNumber) {
 		this.time = time;
 		this.praise = 0;
@@ -54,11 +54,11 @@ public class Program {
 		this.id = id;
 	}
 	@Column(name="pr_time")
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	@Column(name="pr_praise")//点赞
