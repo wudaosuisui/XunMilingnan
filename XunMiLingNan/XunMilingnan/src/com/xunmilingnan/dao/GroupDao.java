@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import com.xunmilingnan.entity.Group;
+import com.xunmilingnan.entity.User;
 
 
 @Repository
@@ -44,9 +45,16 @@ public class GroupDao {
 	}
 	
 	public Group getBySign(String sign ) {
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User_group where sign = "+sign);
-		List<Group> gl = q.list();
-		return gl.get(0);
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Group where sign = '"+sign+"'");//User_group
+//		List<Group> gl = q.list();
+//		return gl.get(0);
+		if(q.list().size()<1) {
+			System.out.println("ul.size()<1");
+			return null;
+		}else {
+			System.out.println("ul.size()>=1");
+			return (Group)q.list().get(0);
+		}
 	}
 	/*修改*/
 	public void upDate(Group ug) {

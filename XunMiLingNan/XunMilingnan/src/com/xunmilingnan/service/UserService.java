@@ -108,36 +108,41 @@ public class UserService {
         String result =sb.toString();       
         return result;      
     }    
+
 	//登录
 	public HashMap<String, Object> login(String code){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
+		Map message =new HashMap<String, Object>(1);
 		//执行操作
 		js_code = "&js_code="+code;
 		String Url = url +appid+secret+grant_type+js_code;//将code存入url
 		Map pr =new  HashMap<String, String>(0);//一个空的json参数表
-//		String jsoStr = HttpClientTool.doGet(Url,pr);//获取返回值json String
-		String jsoStr = getURLContent(Url);
+		String jsoStr = HttpClientTool.doGet(Url,pr);//获取返回值json String
 		JSONObject jsonObject = JSONArray.parseObject(jsoStr);//将  json String -》 json 
 		String openid = jsonObject.getString("openid");
 		String session_key = jsonObject.getString("session_key");
-		
-		Session session = sessionFactory.openSession();
-		User  user = usDao.getByOpenid(jsonObject.getString("openid"));//尝试通过unionid获取user
-		if(user==null) {//如果user为空   执行注册操作  否则返回user即可
-			statusCode = "130000";
-			desc ="此用户为首次登录";
-			Date time = new Date();
-			user = this.register(openid, session_key,time);
-			usDao.save(user);
+		if(openid==null) {
+			statusCode = "130001";
+			desc ="openid获取失败";
+		}else {
+			Session session = sessionFactory.openSession();
+//			System.out.println("beful get user");
+			User  user = usDao.getByOpenid(openid);//尝试通过unionid获取user  jsonObject.getString("openid")
+//			System.out.println("get user success");
+			if(user==null) {//如果user为空   执行注册操作  否则返回user即可
+//				System.out.println("get if success");
+				statusCode = "130000";
+				desc ="此用户为首次登录";
+				Date time = new Date();
+				user = this.register(openid, session_key,time);
+				usDao.save(user);
+			}
+			session.close();
+			message.put("user",user);
 		}
-		session.close();
-		Map message =new HashMap<String, Object>(1);
-//			put("openid",openid);
-//			put("session_key",session_key);
-		message.put("user",user);
 		//存入返回值
 		result.getResult().put("message", message);
 		result.setStatusCode(statusCode);
@@ -147,9 +152,11 @@ public class UserService {
 	
 	public User register(String openid ,String session_key,Date time) {
 		User user = new User();
+		Group gro = grDao.getBySign("1");
 		user.setOpenid(openid);
 		user.setSession_key(session_key);
 		user.setTime(time);
+		user.setGro(gro);
 		return user;
 	}
 	public HashMap<String, Object> updateUser(User user){
@@ -437,3 +444,34 @@ public class UserService {
 	}
 	
 }
+
+
+//public HashMap<String, Object> test(){
+//	//返回值
+//	Result result = new Result();
+//	String statusCode =result.getStatusCode();//状态码
+//	String desc = result.getDesc();//状态码描述
+//	//执行操作
+//	Session session = sessionFactory.openSession();
+//	String openid = "oPrQA5Zlj81rYhs3YyHquaiwgjsY---";
+//	String session_key = "eMtFxyWIHygA2s3YkivawA==";
+//	System.out.println("beful get user");
+//	User  user = usDao.getByOpenid(openid);//尝试通过unionid获取user  jsonObject.getString("openid")
+//	System.out.println("get user success");
+//	if(user==null) {//如果user为空   执行注册操作  否则返回user即可
+//		System.out.println("get if success");
+//		statusCode = "130000";
+//		desc ="此用户为首次登录";
+//		Date time = new Date();
+//		user = this.register(openid, session_key,time);
+//		usDao.save(user);
+//	}
+//	session.close();
+//	Map message =new HashMap<String, Object>(1);
+//	message.put("user", user);
+//	//存入返回值
+//	result.getResult().put("message", message);
+//	result.setStatusCode(statusCode);
+//	result.setDesc(desc);
+//	return result.getRe();
+//}

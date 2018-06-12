@@ -34,8 +34,8 @@ public class UserDao {
 		Query q=this.sessionFactory.getCurrentSession().createQuery("from User");
 		return q.list();
 	}
-	public List<User> getList(String ret){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where userName =?"+ret+"?");
+	public List<User> getList(String ret){//¼ìË÷ÓÃ»§Ãû
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where userName ='%"+ret+"%'");
 		return q.list();
 	}
 	//follow list -> user list
@@ -59,9 +59,16 @@ public class UserDao {
 		return obj;
 	}
 	public User getByOpenid(String key ) {
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where openid ="+key);
-		List<User> ul =  q.list();
-		return ul.get(0);
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from User where openid = '"+key+"'");
+//		return (User)q.list().get(0);
+		if(q.list().size()<1) {
+			System.out.println("ul.size()<1");
+			return null;
+		}else {
+			System.out.println("ul.size()>=1");
+			return (User)q.list().get(0);
+		}
+
 	}
 	
 	/*upDate*/
@@ -84,3 +91,39 @@ public class UserDao {
 	}
 
 }
+
+
+
+
+//System.out.println("get  dao success  key is "+ key);
+//Query q=this.sessionFactory.getCurrentSession().createQuery("from User");
+//System.out.println("select seccess ");
+//System.out.println("q is  "+q);
+//System.out.println("q.list    "+q.list());
+//List<User> ul = q.list();
+//System.out.println("ul is "+ul+"  key is "+key);
+//if(ul.size()<1) {
+//	System.out.println("ul.size()<1");
+//	return null;
+//}else {
+//	System.out.println("ul.size()>=1");
+//	for(User u : ul) {
+//		if(u.getOpenid()==key) {
+//			System.out.println("get user ");
+//			return u;
+//		}
+//	}
+//	return null;
+//}
+
+
+//System.out.println("get  dao success  key is "+ key);
+//Query q=this.sessionFactory.getCurrentSession().createQuery("from User where openid ="+key);
+//System.out.println("q is "+q+"  key is  " + key+"   q.list() is "+q.list()+"   q.list.size  is  "+q.list().size());
+//if(q.list().size()<1) {
+//	System.out.println("q.list is null      "+q.list());
+//	return null;
+//}else {
+//	System.out.println("q.list is not  null   "+q.list());
+//	return (User) q.list().get(0);
+//}

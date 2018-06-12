@@ -18,20 +18,20 @@ public class SpecialTopic {
 	private int id;
 	private AdvCategory SpeTopCat;
 	private String title;//标题
-	private Date startTime;//开始时间
-	private Date endTime;//截止时间
+	private String startTime;//开始时间
+	private String endTime;//截止时间
 	private String article;//活动内容（宣传的文字）
 	private String img;//活动宣传图片（海报）
 	private int browse;//关注量
-	private Date showTime;//发布时间
+	private String showTime;//发布时间
 	private int isHot;//热门  0为非热门专题，1为热门专题
 	private int sort;//排序编号
 	
 	//空构造
 	public SpecialTopic() {}
 	//基本全构造
-	public SpecialTopic(AdvCategory speTopCat, String title, Date startTime, Date endTime, String article, String img,
-			Date showTime, int isHot, int sort) {
+	public SpecialTopic(AdvCategory speTopCat, String title, String startTime, String endTime, String article, String img,
+			String showTime, int isHot, int sort) {
 		SpeTopCat = speTopCat;
 		this.title = title;
 		this.startTime = startTime;
@@ -72,17 +72,17 @@ public class SpecialTopic {
 		this.title = title;
 	}
 	@Column(name="ac_starttime")
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 	@Column(name="ac_endtime")
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	@Column(name="ac_article")
@@ -107,10 +107,10 @@ public class SpecialTopic {
 		this.browse = browse;
 	}
 	@Column(name="ac_showTime")
-	public Date getShowTime() {
+	public String getShowTime() {
 		return showTime;
 	}
-	public void setShowTime(Date showTime) {
+	public void setShowTime(String showTime) {
 		this.showTime = showTime;
 	}
 	@Column(name="ac_isHot")

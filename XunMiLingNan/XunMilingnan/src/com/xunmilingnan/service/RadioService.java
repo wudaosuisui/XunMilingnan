@@ -329,9 +329,8 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		advCatDao.save(advCat);
 		session.close();
-		Map message =new HashMap<String, Object>(2)
+		Map message =new HashMap<String, Object>(1)
 		{{put("advCat",advCat);
-		  put("imgUrl","F:\\Documents\\GitHub\\XunMilingnan\\XunMiLingNan\\XunMilingnan\\WebContent\\img\\");
 		}};
 		//´æÈë·µ»ØÖµ
 		result.getResult().put("message", message);
