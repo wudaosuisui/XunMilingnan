@@ -69,9 +69,10 @@ public class UserController {
 	@RequestMapping("/foluselist")
 	private void followUserList(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, usService.followList(uId,pagNum,2));
+		ResponseJsonUtils.json(response, usService.followList(uId,pagNum,limit,2));
 	}
 	//	5. 查看关注的某个用户（同1）
 	@RequestMapping("/getfoluse")
@@ -84,9 +85,10 @@ public class UserController {
 	@RequestMapping("/befoluselist")
 	private void beFollowUserList(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, usService.beFollowList(uId,pagNum,2));
+		ResponseJsonUtils.json(response, usService.beFollowList(uId,pagNum,limit,2));
 	}
 	//	7. 查看收藏的文章（此接口位于文章模块）
 	//	8. 查看收藏的专题（专题模块）

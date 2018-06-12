@@ -35,7 +35,6 @@ public class RadioService {
 	@Resource//节目
 	private ProgramDao proDao;
 	
-	private Page page = new Page(10);//10是每页显示的条数
 	
 	/*节目的操作-------------------------------------------------------------------*/
 	//	1. 在一个专辑下添加（创建）一个节目（用户）
@@ -100,7 +99,7 @@ public class RadioService {
 	}
 	//	5. (位于 follow Service)获取某个用户(依据用户id)收藏的所有节目(用户)
 	//	6. 获取某专辑下所有节目（按ID/发布时间倒序）
-	public HashMap<String, Object> getProgramsInAlbum(int aId,int pagNum){
+	public HashMap<String, Object> getProgramsInAlbum(int aId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -108,6 +107,7 @@ public class RadioService {
 		//执行操作
 		Session session = sessionFactory.openSession();
 		//获取专辑里的节目列表，并存入page
+		Page page = new Page(limit);
 		page.setList(proDao.getListByAlbumId(aId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -121,7 +121,7 @@ public class RadioService {
 		return result.getRe();
 	}
 	//	7. 获取某个电台分类下所以节目（按ID/发布时间倒序）
-	public HashMap<String, Object> getProgramsInRadCat(int rId,int pagNum){
+	public HashMap<String, Object> getProgramsInRadCat(int rId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -129,6 +129,7 @@ public class RadioService {
 		//执行操作
 		Session session = sessionFactory.openSession();
 		//获取专辑里的节目列表，并存入page
+		Page page = new Page(limit);
 		page.setList(proDao.getListByAdvCatId(rId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -252,7 +253,7 @@ public class RadioService {
 		return result.getRe();
 	}
 	//	4. 获取一个电台分类下的所有专辑（按ID/创建时间倒序）/getallalbum
-	public HashMap<String, Object>  getAlbumList(int advCatid,int pageNum) {
+	public HashMap<String, Object>  getAlbumList(int advCatid,int pageNum,int limit) {
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -261,6 +262,7 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		List<Album> albumList = albumDao.getList(advCatid);
 		session.close();
+		Page page = new Page(limit);
 		if(albumList==null) {
 			statusCode = "100005";
 			desc = "数据库列表获取失败";
@@ -293,7 +295,7 @@ public class RadioService {
 		return adv;
 	}
 	//获取所有电台分类
-	public HashMap<String, Object> getAdvCatList(int pageNum){
+	public HashMap<String, Object> getAdvCatList(int pageNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -302,6 +304,7 @@ public class RadioService {
 		Session session = sessionFactory.openSession();
 		List<AdvCategory> advCatList = advCatDao.getRadioList();
 		session.close();
+		Page page = new Page(limit);
 		if(advCatList==null) {
 			statusCode = "100005";
 			desc = "数据库列表获取失败";

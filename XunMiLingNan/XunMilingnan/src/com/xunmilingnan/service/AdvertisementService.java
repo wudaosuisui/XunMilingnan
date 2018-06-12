@@ -28,7 +28,6 @@ public class AdvertisementService {
 	private AdvCategoryDao advCatDao;
 	@Resource//电台分类（也是广告分类）Dao
 	private AdvertisementDao advDao;
-	private Page page = new Page(10);
 	
 	//	1. 添加广告分类
 	public HashMap<String, Object> addAdvCat(AdvCategory advCat){
@@ -96,7 +95,7 @@ public class AdvertisementService {
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
-		page.setPageSize(limit);
+		Page page = new Page(limit);
 		page.setList(advCatDao.getAdvList());
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -165,13 +164,14 @@ public class AdvertisementService {
 		return result.getRe();
 	}
 	//	8. 获取所有广告(带有分页和筛选)
-	public HashMap<String, Object> getAdvList(int pagNum){
+	public HashMap<String, Object> getAdvList(int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(advDao.getList());
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -185,13 +185,14 @@ public class AdvertisementService {
 		return result.getRe();
 	}
 	//  9. 获取某个广告分类下的所有广告（带有分页和筛选）
-	public HashMap<String, Object> getAdvListInAdvCat(int acId,int pagNum){
+	public HashMap<String, Object> getAdvListInAdvCat(int acId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(advDao.getListByAdvCatId(acId));
 		page.setCurrentPageNum(pagNum);
 		session.close();

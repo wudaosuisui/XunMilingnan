@@ -25,9 +25,10 @@ public class NewsAndRetrievalController {
 	@RequestMapping("news/getnews")
 	public void getNewsByUid(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response,nrService.getNewsByUid(uId,pagNum));
+		ResponseJsonUtils.json(response,nrService.getNewsByUid(uId,pagNum,limit));
 	}
 	//	2. 读取（查看）（用户读取某消息后，更改消息的状态为已读）
 	@RequestMapping("news/rednews")
@@ -65,41 +66,46 @@ public class NewsAndRetrievalController {
 	@RequestMapping("retr/user")
 	public void retrievalUser(HttpServletResponse response,
 			@RequestParam(value="ret")  String ret,//检索内容
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response,nrService.retrievalUser(ret,pagNum));
+		ResponseJsonUtils.json(response,nrService.retrievalUser(ret,pagNum,limit));
 	}
 	//SpecuakTop
 	@RequestMapping("retr/specuaktop")
 	public void retrievalSpecuakTop(HttpServletResponse response,
 			@RequestParam(value="ret")  String ret,//检索内容
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response,nrService.retrievalSpecuakTop(ret,pagNum));
+		ResponseJsonUtils.json(response,nrService.retrievalSpecuakTop(ret,pagNum,limit));
 	}
 	//Article
 	@RequestMapping("retr/article")
 	public void retrievalArticle(HttpServletResponse response,
 			@RequestParam(value="ret")  String ret,//检索内容
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response,nrService.retrievalArticle(ret,pagNum));
+		ResponseJsonUtils.json(response,nrService.retrievalArticle(ret,pagNum,limit));
 	}
 	//Album
 	@RequestMapping("retr/album")
 	public void retrievalAlbum(HttpServletResponse response,
 			@RequestParam(value="ret")  String ret,//检索内容
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-	ResponseJsonUtils.json(response,nrService.retrievalAlbum(ret,pagNum));
+	ResponseJsonUtils.json(response,nrService.retrievalAlbum(ret,pagNum,limit));
 	}
 	//Program
 	@RequestMapping("retr/program")
 	public void retrievalProgram(HttpServletResponse response,
 			@RequestParam(value="ret")  String ret,//检索内容
-			@RequestParam(value="pagNum")  int pagNum
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response,nrService.retrievalProgram(ret,pagNum));
+		ResponseJsonUtils.json(response,nrService.retrievalProgram(ret,pagNum,limit));
 	}
 
 }

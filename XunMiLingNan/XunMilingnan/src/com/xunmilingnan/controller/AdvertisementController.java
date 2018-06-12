@@ -109,16 +109,18 @@ public class AdvertisementController {
 	//	8. 获取所有广告(带有分页和筛选)
 	@PostMapping("/getadvlist")
 	public void getAdvList(HttpServletResponse response,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response, advService.getAdvList(pagNum));
+		ResponseJsonUtils.json(response, advService.getAdvList(pagNum,limit));
 	}
 	//  9. 获取某个广告分类下的所有广告（带有分页和筛选）
 	@PostMapping("/getadvlistinac")
 	public void getAdvListInAdvCat(HttpServletResponse response,
 			@RequestParam(value="acId") int acId,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
-		ResponseJsonUtils.json(response, advService.getAdvListInAdvCat(acId,pagNum));
+		ResponseJsonUtils.json(response, advService.getAdvListInAdvCat(acId,pagNum,limit));
 	}
 }

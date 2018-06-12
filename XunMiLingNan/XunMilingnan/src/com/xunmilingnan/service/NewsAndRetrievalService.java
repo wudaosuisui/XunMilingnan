@@ -53,17 +53,16 @@ public class NewsAndRetrievalService {
 	private FollowDao foDao;
 	
 	
-	private Page page = new Page (10);
-	
 	/*"消息"的操作-------------------------------------------------------------------*/
 	//	1. 获取某用户的所有消息（已读未读都包含）
-	public HashMap<String, Object> getNewsByUid(int uId,int pagNum){
+	public HashMap<String, Object> getNewsByUid(int uId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(neDao.getListByUid(uId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -226,13 +225,14 @@ public class NewsAndRetrievalService {
 	}
 	//	检索详细页
 	//	1. 用户
-	public HashMap<String, Object> retrievalUser(String ret,int pagNum){
+	public HashMap<String, Object> retrievalUser(String ret,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(usDao.getList(ret));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -247,13 +247,14 @@ public class NewsAndRetrievalService {
 		return result.getRe();
 	}
 	//	2. 专题
-	public HashMap<String, Object> retrievalSpecuakTop(String ret,int pagNum){
+	public HashMap<String, Object> retrievalSpecuakTop(String ret,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(stDao.getList(ret));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -268,13 +269,14 @@ public class NewsAndRetrievalService {
 		return result.getRe();
 	}
 	//	3. 文章
-	public HashMap<String, Object> retrievalArticle(String ret,int pagNum){
+	public HashMap<String, Object> retrievalArticle(String ret,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(arDao.getList(ret));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -289,13 +291,14 @@ public class NewsAndRetrievalService {
 		return result.getRe();
 	}
 	//	4. 专辑
-	public HashMap<String, Object> retrievalAlbum(String ret,int pagNum){
+	public HashMap<String, Object> retrievalAlbum(String ret,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(alDao.getList(ret));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -310,13 +313,14 @@ public class NewsAndRetrievalService {
 		return result.getRe();
 	}
 	//	5. 节目
-	public HashMap<String, Object> retrievalProgram(String ret,int pagNum){
+	public HashMap<String, Object> retrievalProgram(String ret,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(prDao.getList(ret));
 		page.setCurrentPageNum(pagNum);
 		session.close();

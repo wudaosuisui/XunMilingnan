@@ -107,19 +107,21 @@ public class SpecialTopicController {
 	//	4. 查看所有文章(带有分页和筛选)
 	@PostMapping("/arlist")
 	public void getArticleList(HttpServletResponse response,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
 		//删除
-		ResponseJsonUtils.json(response, stService.getArticleList(pagNum));
+		ResponseJsonUtils.json(response, stService.getArticleList(pagNum,limit));
 	}
 	//	5. 查看某一专题下的所有文章
 	@PostMapping("/arlistinst")
 	public void getArticleListInSt(HttpServletResponse response,
 			@RequestParam(value="stId") int stId,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 			) {
 		//删除
-		ResponseJsonUtils.json(response, stService.getArticleListInSt(stId,pagNum));
+		ResponseJsonUtils.json(response, stService.getArticleListInSt(stId,pagNum,limit));
 	}
 	//	6. 对某篇文章进行评论（用户）（审核通过后，对文章作者发送一条消息）
 	@PostMapping("/comar")
@@ -172,9 +174,10 @@ public class SpecialTopicController {
 	@PostMapping("/getfolarts")
 	public void getFollowArt(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum//页码
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, foService.getFollowArt(uId,pagNum));
+		ResponseJsonUtils.json(response, foService.getFollowArt(uId,pagNum,limit));
 	}
 	//	10. 浏览（浏览量+1）（用户）
 	@PostMapping("/browseart")
@@ -194,9 +197,10 @@ public class SpecialTopicController {
 	@PostMapping("/userslistbyus")
 	public void getArticleListByUser(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum//页码
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit") int limit//页码
 			) {
-		ResponseJsonUtils.json(response,stService.getArticleListByUser(uId,pagNum));
+		ResponseJsonUtils.json(response,stService.getArticleListByUser(uId,pagNum,limit));
 	}
 	//	14.	审核通过某个评论（接6）   
 	@PostMapping("/audcom")//examine
@@ -261,9 +265,10 @@ public class SpecialTopicController {
 	@PostMapping("/stlistinstcat")
 	public void stListInStCat(HttpServletResponse response,
 			@RequestParam(value="stcId") int stcId,
-			@RequestParam(value="pagNum") int pagNum) {
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit) {
 		//获取并返回
-		ResponseJsonUtils.json(response, stService.stListInStCat(stcId,pagNum));
+		ResponseJsonUtils.json(response, stService.stListInStCat(stcId,pagNum,limit));
 	}
 	/*"专题分类"的操作-------------------------------------------------------------------*/
 	//	1. 创建一个专题分类
@@ -304,10 +309,11 @@ public class SpecialTopicController {
 	//	4. 获取全部专题分类(带有分页和筛选)
 	@PostMapping("/stcatlist")
 	public void speTopCatList(HttpServletResponse response,
-			@RequestParam(value="pagNum") int pagNum
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit") int limit
 	) {
 		//执行并返回
-		ResponseJsonUtils.json(response, stService.speTopCatList(pagNum));
+		ResponseJsonUtils.json(response, stService.speTopCatList(pagNum,limit));
 	}
 }
 

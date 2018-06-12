@@ -56,7 +56,7 @@ public class RadioController {
 	//	1. 在一个专辑下添加（创建）一个节目（用户）
 	@PostMapping("/addprogram")//添加一个节目Program
 	public void addProgram(HttpServletResponse response,
-//			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
+			@RequestParam(value="longOfTime") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
@@ -67,7 +67,7 @@ public class RadioController {
 		Album album = radioService.getAlbum(albumId);
 		//创建发布时间
 		Date time = new Date();
-		Date longOfTime = new Date();
+//		Date longOfTime = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		ResponseJsonUtils.json(response, radioService.addProgram(pro));
@@ -82,7 +82,7 @@ public class RadioController {
 	@PostMapping("/updprogram")
 	public void updProgram(HttpServletResponse response,
 			@RequestParam(value="id")  int id,//发布时间
-//			@RequestParam(value="longOfTime") Date longOfTime,//节目时常
+			@RequestParam(value="longOfTime") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
@@ -93,7 +93,6 @@ public class RadioController {
 		Album album = radioService.getAlbum(albumId);
 		//创建发布时间
 		Date time = new Date();
-		Date longOfTime = new Date();
 		//创建一个节目对象
 		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
 		//输入此节目对象应有的id
@@ -119,25 +118,28 @@ public class RadioController {
 	@PostMapping("/getfolprograms")
 	public void getFollowPrograms(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum//页码
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, followService.getFollowPrograms(uId,pagNum));
+		ResponseJsonUtils.json(response, followService.getFollowPrograms(uId,pagNum,limit));
 	}
 	//	6. 获取某专辑下所有节目（按ID/发布时间倒序）
 	@PostMapping("/getproinalbum")
 	public void getProgramsInAlbum(HttpServletResponse response,
 			@RequestParam(value="aId")  int aId,
-			@RequestParam(value="pagNum")  int pagNum//页码
+			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, radioService.getProgramsInAlbum(aId,pagNum));
+		ResponseJsonUtils.json(response, radioService.getProgramsInAlbum(aId,pagNum,limit));
 	}
 	//	7. 获取某个电台分类下所以节目（按ID/发布时间倒序）
 	@PostMapping("/getproinradcat")
 	public void getProgramsInRadCat(HttpServletResponse response,
 			@RequestParam(value="rId")  int rId,
-			@RequestParam(value="pagNum")  int pagNum//页码
+			@RequestParam(value="pagNum")  int pagNum,//页码,
+			@RequestParam(value="limit")  int limit
 			) {
-		ResponseJsonUtils.json(response, radioService.getProgramsInRadCat(rId,pagNum));
+		ResponseJsonUtils.json(response, radioService.getProgramsInRadCat(rId,pagNum,limit));
 	}
 	//	8. 听取某个节目
 	@PostMapping("/browsepro")
@@ -204,8 +206,9 @@ public class RadioController {
 	@PostMapping("/getallalbum")//获取专辑列表
 	public void getAllAlbum(HttpServletResponse response,
 			@RequestParam(value="acId") int acid,
-			@RequestParam(value="pagNum") int pagNum) {//pagNum 欲获取的分页
-		ResponseJsonUtils.json(response,radioService.getAlbumList(acid,pagNum));
+			@RequestParam(value="pagNum") int pagNum,
+			@RequestParam(value="limit")  int limit) {//pagNum 欲获取的分页
+		ResponseJsonUtils.json(response,radioService.getAlbumList(acid,pagNum,limit));
 	}
 	
 	
@@ -248,8 +251,9 @@ public class RadioController {
 	//	4. 获取所有电台分类(带有分页和筛选) /getalladcat
 	@PostMapping("/getalladcat")//带有分页功能
 	public void getAllRadioCategory(HttpServletResponse response,
-			@RequestParam(value="pagNum")int pagNum) {//pagNum 欲获取的分页
-		ResponseJsonUtils.json(response, radioService.getAdvCatList(pagNum));
+			@RequestParam(value="pagNum")int pagNum,
+			@RequestParam(value="limit")  int limit) {//pagNum 欲获取的分页
+		ResponseJsonUtils.json(response, radioService.getAdvCatList(pagNum,limit));
 	}
 	
 	

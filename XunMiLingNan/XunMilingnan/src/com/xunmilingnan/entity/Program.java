@@ -20,7 +20,7 @@ public class Program {
 	private int praise;//点赞-0
 	private int browse;//听取-1
 	private int follow;//关注 收藏-2
-	private Date longOfTime;//节目时长
+	private String longOfTime;//节目时长
 	private String name;//节目名称
 	private int advCat;//对应的电台分类的id
 	private Album album;//对应的专辑
@@ -29,7 +29,7 @@ public class Program {
 
 	public Program() {}
 	
-	public Program(Date time, Date longOfTime, String name, int advCat,Album album,
+	public Program(Date time, String longOfTime, String name, int advCat,Album album,
 			String fMName, int sortNumber) {
 		this.time = time;
 		this.praise = 0;
@@ -86,11 +86,11 @@ public class Program {
 		this.follow = follow;
 	}
 	@Column(name="pr_longOfTime")
-	public Date getLongOfTime() {
+	public String getLongOfTime() {
 		return longOfTime;
 	}
 
-	public void setLongOfTime(Date longOfTime) {
+	public void setLongOfTime(String longOfTime) {
 		this.longOfTime = longOfTime;
 	}
 	@Column(name="pr_name")

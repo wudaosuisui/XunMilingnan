@@ -30,7 +30,6 @@ public class FollowService {
 	private ProgramDao programDao;
 	@Resource
 	private ArticleDao arDao;
-	private Page page = new Page(10);
 	
 	//	4. 收藏某个节目(依据节目id和用户id)到用户收藏(用户)	
 	public HashMap<String, Object> addFollow(Follow fo){
@@ -55,7 +54,7 @@ public class FollowService {
 	}
 	
 	//	5. 获取某个用户(依据用户id)收藏的所有文章(用户)
-	public HashMap<String, Object> getFollowArt(int uId,int pagNum){
+	public HashMap<String, Object> getFollowArt(int uId,int pagNum,int limit ){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -65,6 +64,7 @@ public class FollowService {
 		//获取follw List
 		List<Follow> foList = followDao.getListByUT(uId, 0);
 		//获取 program  List 并存入page
+		Page page = new Page(limit);
 		page.setList( arDao.getListByFollowList(foList));
 		page.setCurrentPageNum(pagNum);
 		//获取局部列表
@@ -82,7 +82,7 @@ public class FollowService {
 	}
 	
 	//	5. 获取某个用户(依据用户id)收藏的所有节目(用户)
-	public HashMap<String, Object> getFollowPrograms(int uId ,int pagNum){
+	public HashMap<String, Object> getFollowPrograms(int uId ,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -92,6 +92,7 @@ public class FollowService {
 		//获取follw List
 		List<Follow> foList = followDao.getListByUT(uId, 1);
 		//获取 program  List 并存入page
+		Page page = new Page(limit);
 		page.setList( programDao.getListByFollowList(foList));
 		page.setCurrentPageNum(pagNum);
 		//获取局部列表

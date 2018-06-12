@@ -41,8 +41,6 @@ public class SpecialTopicService {
 	private UserDao usDao;
 	
 	
-	private Page page = new Page(10);
-	
 	
 	/*"文章"的操作-------------------------------------------------------------------*/
 	//	1. 在一个专题下发布一篇文章（用户）（如果有人关注他，对关注他的人发布一条消息）
@@ -103,13 +101,14 @@ public class SpecialTopicService {
 		return result.getRe();
 	}
 	//	4. 查看所有文章(带有分页和筛选)
-	public HashMap<String, Object> getArticleList(int pagNum){
+	public HashMap<String, Object> getArticleList(int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(artDao.getList());
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -123,13 +122,14 @@ public class SpecialTopicService {
 		return result.getRe();
 	}
 	//	5. 查看某一专题下的所有文章
-	public HashMap<String, Object> getArticleListInSt(int stId,int pagNum){
+	public HashMap<String, Object> getArticleListInSt(int stId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(artDao.getListInSt(stId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -194,13 +194,14 @@ public class SpecialTopicService {
 		return this.artAddOne(id, 2);
 	}
 	//	12. 获取某个用户所写的所有文章
-	public HashMap<String, Object> getArticleListByUser(int uId,int pagNum){
+	public HashMap<String, Object> getArticleListByUser(int uId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(artDao.getListInU(uId));
 		session.close();
 		Map message =new HashMap<String, Object>(1){{
@@ -338,13 +339,14 @@ public class SpecialTopicService {
 		return result.getRe();
 	}
 	//	4. 获取某专题分类下的所有专题(带有分页和筛选)
-	public HashMap<String, Object> stListInStCat(int stcId,int pagNum){
+	public HashMap<String, Object> stListInStCat(int stcId,int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(stDao.getListInStCat(stcId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -424,13 +426,14 @@ public class SpecialTopicService {
 		return result.getRe();
 	}
 	//	4. 获取全部专题分类(带有分页和筛选)
-	public HashMap<String, Object> speTopCatList(int pagNum){
+	public HashMap<String, Object> speTopCatList(int pagNum,int limit){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
 		String desc = result.getDesc();//状态码描述
 		//执行操作
 		Session session = sessionFactory.openSession();
+		Page page = new Page(limit);
 		page.setList(acDao.getObgList(2));
 		page.setCurrentPageNum(pagNum);
 		session.close();

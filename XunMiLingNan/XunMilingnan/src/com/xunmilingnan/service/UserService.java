@@ -64,7 +64,6 @@ public class UserService {
 	private static String secret = "&secret=ec7abc04967536d55102800563932d09";
 	private static String grant_type = "&grant_type=authorization_code";
 	private static String js_code = new String();
-	private static Page page = new Page(10);
 	
 	//https://api.weixin.qq.com/sns/jscode2session?
 	//appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
@@ -309,7 +308,7 @@ public class UserService {
 		
 		
 	//	4. 获取此用户关注的所有用户
-	public HashMap<String, Object> followList(int uId,int pagNum,int type){
+	public HashMap<String, Object> followList(int uId,int pagNum,int limit,int type){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -318,6 +317,7 @@ public class UserService {
 		Session session = sessionFactory.openSession();
 		//获取此用户关注的用户列表
 		List<Follow> fl = foDao.getListByUT(uId, type);
+		Page page = new Page(limit);
 		page.setList(usDao.getUserListByFL(fl));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -332,7 +332,7 @@ public class UserService {
 	}
 	//	5. 查看关注的某个用户(同1)
 	//	6. 查看关注自己的粉丝
-	public HashMap<String, Object> beFollowList(int uId,int pagNum,int type){
+	public HashMap<String, Object> beFollowList(int uId,int pagNum,int limit,int type){
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
@@ -341,6 +341,7 @@ public class UserService {
 		Session session = sessionFactory.openSession();
 		//获取此用户关注的用户列表
 		List<Follow> fl = foDao.getListByFT(uId, type);
+		Page page = new Page(limit);
 		page.setList(usDao.getUserListByFL(fl));
 		page.setCurrentPageNum(pagNum);
 		session.close();
