@@ -81,7 +81,7 @@ public class User {
 	}
 	public User(int id, String avatarUrl, String city,
 			String country, String language,String username,
-			String province
+			String province,int sex
 			) {
 		this.id = id;
 		this.avatarUrl = avatarUrl;
@@ -90,6 +90,7 @@ public class User {
 		this.language = language;
 		this.userName = username;
 		this.province = province;
+		this.sex = sex;
 	}
 	@Id
 	@GeneratedValue(generator="my_gen")

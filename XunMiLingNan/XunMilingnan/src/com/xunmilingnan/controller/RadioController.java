@@ -152,6 +152,14 @@ public class RadioController {
 			) {
 		ResponseJsonUtils.json(response, radioService.praiseProgram(pId));
 	}
+	// 10.获取全部节目（带分页）
+	@PostMapping("/getprolist")
+	public void getProgramsLiat(HttpServletResponse response,
+			@RequestParam(value="pagNum")  int pagNum,//页码,
+			@RequestParam(value="limit")  int limit
+			) {
+		ResponseJsonUtils.json(response, radioService.getProgramsLiat(pagNum,limit));
+	}
 	/*专辑的操作-------------------------------------------------------------------*/
 	//	1. 在一个电台分类下添加（创建）一个专辑（用户）/addalbum	
 	@PostMapping("/addalbum")//添加一个专辑

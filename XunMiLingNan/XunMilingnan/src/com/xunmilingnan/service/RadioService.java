@@ -150,6 +150,29 @@ public class RadioService {
 	public HashMap<String, Object> praiseProgram(int id ) {
 		return this.proAddOne(id, 0);
 	}
+	// 10.获取全部节目（带分页）
+	public HashMap<String, Object> getProgramsLiat(int pagNum,int limit){
+		//返回值
+		Result result = new Result();
+		String statusCode =result.getStatusCode();//状态码
+		String desc = result.getDesc();//状态码描述
+		//执行操作
+		Session session = sessionFactory.openSession();
+		//获取专辑里的节目列表，并存入page
+		Page page = new Page(limit);
+		page.setList(proDao.getList());
+		page.setCurrentPageNum(pagNum);
+		session.close();
+		Map message =new HashMap<String, Object>(1){{
+			put("Programs",page.getPartList());
+		}};
+		//存入返回值
+		result.getResult().put("message", message);
+		result.setStatusCode(statusCode);
+		result.setDesc(desc);
+		return result.getRe();
+	}
+	
 	//加一操作
 	public HashMap<String, Object> proAddOne(int id ,int type) {
 		//返回值

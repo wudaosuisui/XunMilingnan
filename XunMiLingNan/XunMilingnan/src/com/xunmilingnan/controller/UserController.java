@@ -36,11 +36,12 @@ public class UserController {
 			@RequestParam(value="avatarUrl")  String avatarUrl,
 			@RequestParam(value="city")  String city,
 			@RequestParam(value="country")  String country,
+			@RequestParam(value="gender")  int gender,///性别
 			@RequestParam(value="language")  String language,
 			@RequestParam(value="nickName")  String nickName,
 			@RequestParam(value="province")  String province
 			) {
-		User user = new User(uId,avatarUrl,city,country,language,nickName,province);
+		User user = new User(uId,avatarUrl,city,country,language,nickName,province,gender);
 		ResponseJsonUtils.json(response, usService.updateUser(user));
 	}
 	//	1. 查看个人主页
