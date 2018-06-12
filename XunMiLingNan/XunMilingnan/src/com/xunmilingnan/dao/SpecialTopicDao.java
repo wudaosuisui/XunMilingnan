@@ -33,7 +33,7 @@ public class SpecialTopicDao {
 		return q.list();
 	}
 	public List<SpecialTopic> getList(String ret){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic where title = ?"+ret+"?");
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic where title = '%"+ret+"%'");
 		return q.list();
 	}
 	public List<SpecialTopic> getListInStCat(int stcId){

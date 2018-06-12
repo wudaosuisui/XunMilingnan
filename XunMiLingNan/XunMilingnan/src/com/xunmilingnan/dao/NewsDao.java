@@ -45,7 +45,7 @@ public class NewsDao {
 	}
 	//获取某用户的未读的消息数量
 	public int getCountInU(int uid){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uid+" and state is"+false);
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from News where user = "+uid+" and state is "+false);
 		return q.list().size();
 	}
 	public News getById(int id ) {

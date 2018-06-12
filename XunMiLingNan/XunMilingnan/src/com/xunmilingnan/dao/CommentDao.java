@@ -20,14 +20,14 @@ public class CommentDao {
 	
 	/*save*/
 	public void save(Comment obj ) {
-		System.out.println("get Comment Dao  success");
+//		System.out.println("get Comment Dao  success");
 		Session session = sessionFactory.getCurrentSession();//获取sessio
 		Transaction tra = session.beginTransaction();//�?启事�?
 		session.save(obj);
-		System.out.println("save Comment Dao  success");
+//		System.out.println("save Comment Dao  success");
 		session.flush();
 		tra.commit();
-		System.out.println("out Comment Dao  success");
+//		System.out.println("out Comment Dao  success");
 	}
 	
 	/*get*/

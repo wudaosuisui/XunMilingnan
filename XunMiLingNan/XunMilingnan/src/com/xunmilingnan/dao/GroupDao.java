@@ -31,7 +31,7 @@ public class GroupDao {
 	}
 	/*获取*/
 	public List<Group> getList(){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from User_group");
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from Group");
 		return q.list();
 	}
 	
