@@ -57,17 +57,18 @@ public class RadioController {
 	@PostMapping("/addprogram")//添加一个节目Program
 	public void addProgram(HttpServletResponse response,
 			@RequestParam(value="time") String time,//发布时间
-			@RequestParam(value="longOfTime") String longOfTime,//节目时常
+			@RequestParam(value="longOfTime",required=false, defaultValue="0:00") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
+			@RequestParam(value="img") String  img,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
 			@RequestParam(value="FMName") String FMName,//节目资源的文件名称，如236.mp4
-			@RequestParam(value="sortNumber") int sortNumber//排序编号
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber//排序编号
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
 		//创建一个节目对象
-		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
+		Program pro = new Program(time,longOfTime,name,img,advCatid,album,FMName,sortNumber);
 		ResponseJsonUtils.json(response, radioService.addProgram(pro));
 	}
 	//	2. 在一个专辑下删除一个节目（用户）
@@ -81,17 +82,18 @@ public class RadioController {
 	public void updProgram(HttpServletResponse response,
 			@RequestParam(value="id")  int id,
 			@RequestParam(value="time") String time,//发布时间
-			@RequestParam(value="longOfTime") String longOfTime,//节目时常
+			@RequestParam(value="longOfTime",required=false, defaultValue="0:00") String longOfTime,//节目时常
 			@RequestParam(value="name") String  name,//节目名称
+			@RequestParam(value="img") String  img,//节目名称
 			@RequestParam(value="advCat") int advCatid,//对应电台分类的id
 			@RequestParam(value="album") int albumId,//对应专辑
 			@RequestParam(value="FMName") String FMName,//节目资源的文件名称，如236.mp4
-			@RequestParam(value="sortNumber") int sortNumber//排序编号
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber//排序编号
 			) {
 		//获取对应专辑
 		Album album = radioService.getAlbum(albumId);
 		//创建一个节目对象
-		Program pro = new Program(time,longOfTime,name,advCatid,album,FMName,sortNumber);
+		Program pro = new Program(time,longOfTime,name,img,advCatid,album,FMName,sortNumber);
 		//输入此节目对象应有的id
 		pro.setId(id);
 		ResponseJsonUtils.json(response, radioService.updProgram(pro));
@@ -165,6 +167,7 @@ public class RadioController {
 	@PostMapping("/addalbum")//添加一个专辑
 	public void addAlbum(HttpServletResponse response,
 			@RequestParam(value="rcId") int rcId,
+			@RequestParam(value="describe") String describe,
 			@RequestParam(value="relTime") String relTime,
 			@RequestParam(value="uId") int uId,
 			@RequestParam(value="name") String name,
@@ -174,7 +177,7 @@ public class RadioController {
 		AdvCategory rad = radioService.getRadCat(rcId);
 		User use = userService.getUserById(uId);
 		//创建一个电台专辑
-		Album album = new Album(rad,use,name,relTime,img);
+		Album album = new Album(rad,describe,use,name,relTime,img);
 		//存入并返回
 		ResponseJsonUtils.json(response, radioService.addAlbum(album));
 	}
@@ -191,6 +194,7 @@ public class RadioController {
 	@PostMapping("/updalbum")//更新一个专辑
 	public void updAlbum(HttpServletResponse response,
 			@RequestParam(value="alid") int alid,
+			@RequestParam(value="describe") String describe,
 			@RequestParam(value="relTime") String relTime,
 			@RequestParam(value="rcId") int rcId,
 			@RequestParam(value="uId") int uId,
@@ -201,7 +205,7 @@ public class RadioController {
 		AdvCategory rad = radioService.getRadCat(rcId);
 		User use = userService.getUserById(uId);
 		//创建一个电台专辑
-		Album album = new Album(rad,use,name,relTime,img);
+		Album album = new Album(rad,describe,use,name,relTime,img);
 		album.setId(alid);
 		//存入并返回
 		ResponseJsonUtils.json(response, radioService.updAlbum(album));
@@ -222,7 +226,7 @@ public class RadioController {
 	@PostMapping("/addradcat")
 	public void addRadioCategory( HttpServletResponse response,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber,//排序编号	
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber,//排序编号	
 			@RequestParam(value="img") String img//上传来的图像
 			) {
 		//创建一个“电台分类”的AdvCategory
@@ -242,7 +246,7 @@ public class RadioController {
 	public void updateRadioCategory( HttpServletResponse response,
 			@RequestParam(value="rcId") int rcId,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber,//排序编号	
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber,//排序编号	
 			@RequestParam(value="img") String img//上传来的图像
 			) {
 		//创建一个“电台分类”的AdvCategory

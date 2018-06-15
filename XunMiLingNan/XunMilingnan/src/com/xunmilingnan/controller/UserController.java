@@ -23,6 +23,11 @@ public class UserController {
 	@Resource
 	private UserService usService;
 	//count¼ÆÊý
+	@RequestMapping("/getuserbyid")
+	private void getUserById(HttpServletResponse response,
+			@RequestParam(value="id")  int id ) {
+		ResponseJsonUtils.json(response, usService.getUserById(id));
+	}
 	//µÇÂ¼
 	@RequestMapping("/login")
 	private void logIn(HttpServletResponse response,

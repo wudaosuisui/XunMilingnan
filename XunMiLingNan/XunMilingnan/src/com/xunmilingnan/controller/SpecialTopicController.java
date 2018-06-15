@@ -57,7 +57,7 @@ public class SpecialTopicController {
 			@RequestParam(value="publishTime") String publishTime,
 			@RequestParam(value="title") String title,
 			@RequestParam(value="text") String text,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		//获取专题
 		SpecialTopic st = stService.getSpecialTopicById(stId);
@@ -83,7 +83,7 @@ public class SpecialTopicController {
 			@RequestParam(value="publishTime") String publishTime,
 			@RequestParam(value="title") String title,
 			@RequestParam(value="text") String text,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		//获取专题
 		SpecialTopic st = stService.getSpecialTopicById(stId);
@@ -174,7 +174,7 @@ public class SpecialTopicController {
 	@PostMapping("/getfolarts")
 	public void getFollowArt(HttpServletResponse response,
 			@RequestParam(value="uId")  int uId,
-			@RequestParam(value="pagNum")  int pagNum,
+			@RequestParam(value="pagNum",required=false, defaultValue="0")  int pagNum,
 			@RequestParam(value="limit")  int limit
 			) {
 		ResponseJsonUtils.json(response, foService.getFollowArt(uId,pagNum,limit));
@@ -221,8 +221,8 @@ public class SpecialTopicController {
 			@RequestParam(value="article") String article, 
 			@RequestParam(value="img") String img,
 			@RequestParam(value="showTime") String  showTime,
-			@RequestParam(value="isHot") int isHot,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="isHot",required=false, defaultValue="0") int isHot,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 	) {
 		//获取专题分类
 		AdvCategory stCat = stService.getStCat(stCatId);
@@ -249,8 +249,8 @@ public class SpecialTopicController {
 			@RequestParam(value="article") String article, 
 			@RequestParam(value="img") String img,
 			@RequestParam(value="showTime") String  showTime,
-			@RequestParam(value="isHot") int isHot,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="isHot",required=false, defaultValue="0") int isHot,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 	) {
 		//获取专题分类
 		AdvCategory stCat = stService.getStCat(stCatId);
@@ -275,7 +275,7 @@ public class SpecialTopicController {
 	@PostMapping("/addstcat")
 	public void addSpeTopCat(HttpServletResponse response,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber,
 			@RequestParam(value="img") String img 
 	) {
 		//创建一个专题分类
@@ -296,7 +296,7 @@ public class SpecialTopicController {
 	public void updSpeTopCat(HttpServletResponse response,
 			@RequestParam(value="id") int id,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber,
 			@RequestParam(value="img") String img 
 	) {
 		//创建一个专题分类
@@ -312,6 +312,7 @@ public class SpecialTopicController {
 			@RequestParam(value="pagNum") int pagNum,
 			@RequestParam(value="limit") int limit
 	) {
+		System.out.println("get /stcatlist ");
 		//执行并返回
 		ResponseJsonUtils.json(response, stService.speTopCatList(pagNum,limit));
 	}

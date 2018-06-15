@@ -18,14 +18,16 @@ public class Album {
 	private AdvCategory advCat;
 	private User user;
 	private String name;
+	private String describe;
 	private String relTime;//发布时间 releaseTime
 	private String img;//封面
 	private int follow;//关注量
 	
 	public Album(){	}
 	
-	public Album(AdvCategory advCat, User user, String name, String relTime, String img) {
+	public Album(AdvCategory advCat, String describe, User user, String name, String relTime, String img) {
 		this.advCat = advCat;
+		this.describe = describe;
 		this.user = user;
 		this.name = name;
 		this.relTime = relTime;
@@ -51,6 +53,15 @@ public class Album {
 	public void setAdvCat(AdvCategory advCat) {
 		this.advCat = advCat;
 	}
+	@Column(name="al_describe")
+	public String getDescribe() {
+		return describe;
+	}
+
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="al_uid")
 	public User getUser() {

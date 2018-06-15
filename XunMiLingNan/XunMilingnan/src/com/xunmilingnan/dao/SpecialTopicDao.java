@@ -37,7 +37,7 @@ public class SpecialTopicDao {
 		return q.list();
 	}
 	public List<SpecialTopic> getListInStCat(int stcId){
-		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic where SpeTopCat= "+stcId);
+		Query q=this.sessionFactory.getCurrentSession().createQuery("from SpecialTopic where  ac_stcat  = "+stcId);//
 		return q.list();
 	}
 	public SpecialTopic getById(int id ) {

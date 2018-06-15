@@ -22,6 +22,7 @@ public class Program {
 	private int follow;//关注 收藏-2
 	private String longOfTime;//节目时长
 	private String name;//节目名称
+	private String img;//节目名称
 	private int advCat;//对应的电台分类的id
 	private Album album;//对应的专辑
 	private String FMName;//节目资源的文件名称，如236.mp4
@@ -29,7 +30,7 @@ public class Program {
 
 	public Program() {}
 	
-	public Program(String time, String longOfTime, String name, int advCat,Album album,
+	public Program(String time, String longOfTime, String name, String img,int advCat,Album album,
 			String fMName, int sortNumber) {
 		this.time = time;
 		this.praise = 0;
@@ -37,6 +38,7 @@ public class Program {
 		this.follow = 0;
 		this.longOfTime = longOfTime;
 		this.name = name;
+		this.img = img;
 		this.advCat = advCat;
 		this.album = album;
 		FMName = fMName;
@@ -101,7 +103,15 @@ public class Program {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	@Column(name="pr_img")
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	@Column(name="pr_advCat")
 	public int getAdvCat() {
 		return advCat;

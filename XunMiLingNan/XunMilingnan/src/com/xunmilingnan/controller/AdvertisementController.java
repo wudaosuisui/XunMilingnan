@@ -27,7 +27,7 @@ public class AdvertisementController {
 	@PostMapping("/addadvcat")
 	public void addAdvCat(HttpServletResponse response,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		//创建一个广告分类
 		AdvCategory advCat = new AdvCategory(name,0,sortNumber);
@@ -39,7 +39,7 @@ public class AdvertisementController {
 	public void updAdvCat(HttpServletResponse response,
 			@RequestParam(value="aId") int aId,
 			@RequestParam(value="name") String name,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		System.out.println("get controller ");
 		//创建一个广告分类
@@ -67,11 +67,11 @@ public class AdvertisementController {
 	//	5. 添加一条广告
 	@PostMapping("/addadv")
 	public void addAdvertisement(HttpServletResponse response,
-			@RequestParam(value="advCatId",required=false) int advCatId,
-			@RequestParam(value="title",required=false) String title,
-			@RequestParam(value="img",required=false) String img,
-			@RequestParam(value="url",required=false) String url,
-			@RequestParam(value="sortNumber",required=false) int sortNumber
+			@RequestParam(value="advCatId") int advCatId,
+			@RequestParam(value="title") String title,
+			@RequestParam(value="img",required=false, defaultValue="") String img,
+			@RequestParam(value="url",required=false, defaultValue="") String url,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		//获取广告类型
 		AdvCategory advCat = advService.getAdvCat(advCatId);
@@ -86,9 +86,9 @@ public class AdvertisementController {
 			@RequestParam(value="advId") int advId,
 			@RequestParam(value="advCatId") int advCatId,
 			@RequestParam(value="title") String title,
-			@RequestParam(value="img") String img,
-			@RequestParam(value="url") String url,
-			@RequestParam(value="sortNumber") int sortNumber
+			@RequestParam(value="img",required=false, defaultValue="") String img,
+			@RequestParam(value="url",required=false, defaultValue="") String url,
+			@RequestParam(value="sortNumber",required=false, defaultValue="0") int sortNumber
 			) {
 		//获取广告类型
 		AdvCategory advCat = advService.getAdvCat(advCatId);

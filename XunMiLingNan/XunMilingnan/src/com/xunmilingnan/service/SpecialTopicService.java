@@ -347,6 +347,7 @@ public class SpecialTopicService {
 		//执行操作
 		Session session = sessionFactory.openSession();
 		Page page = new Page(limit);
+		System.out.println("befor dao ");
 		page.setList(stDao.getListInStCat(stcId));
 		page.setCurrentPageNum(pagNum);
 		session.close();
@@ -427,6 +428,7 @@ public class SpecialTopicService {
 	}
 	//	4. 获取全部专题分类(带有分页和筛选)
 	public HashMap<String, Object> speTopCatList(int pagNum,int limit){
+		System.out.println("get service ");
 		//返回值
 		Result result = new Result();
 		String statusCode =result.getStatusCode();//状态码
